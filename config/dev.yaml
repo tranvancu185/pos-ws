@@ -1,0 +1,30 @@
+server:
+  port: ":6066"
+  mode: dev
+  app_name: "pos"
+  path: ""
+database:
+  path: db
+  db_name: PosDev.db
+security:
+  jwt:
+    key: 123
+logger:
+  level: debug
+  path_log: logs
+  file_log_name: main
+  max_size: 500
+  max_backups: 3
+  max_age: 90
+  compress: true
+jwt:
+  secret: productionsecretpos
+  expiration: 24
+  issuer: pos
+  audience: pos
+path:
+  path_storage: storage
+  path_image: images
+  path_file: files
+  path_avatar: avatars
+  path_web: ../pos-client/out/renderer

@@ -1,0 +1,47 @@
+{
+  "workbench.iconTheme": "material-icon-theme",
+  "github.copilot.editor.enableAutoCompletions": true,
+  "editor.formatOnSave": true,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "redhat.telemetry.enabled": true,
+  "makefile.configureOnOpen": true,
+  "go.toolsManagement.autoUpdate": true,
+  "editor.wordWrap": "on",
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontLigatures": true,
+  "editor.fontWeight": "300",
+  "editor.fontSize": 13,
+  "editor.tokenColorCustomizations": {
+    "[*Light*]": {
+      "textMateRules": [
+        {
+          "scope": "ref.matchtext",
+          "settings": {
+            "foreground": "#000"
+          }
+        }
+      ]
+    },
+    "[*Dark*]": {
+      "textMateRules": [
+        {
+          "scope": "ref.matchtext",
+          "settings": {
+            "foreground": "#fff"
+          }
+        }
+      ]
+    }
+  },
+  "editor.semanticTokenColorCustomizations": {
+    "enabled": true,
+    "rules": {
+      "namespace": "#5ba1b5"
+    }
+  },
+  "gopls": {
+    "ui.semanticTokens": true
+  },
+}

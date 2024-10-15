@@ -1,0 +1,30 @@
+server:
+  port: ":6066"
+  mode: production
+  app_name: "pos"
+  path: "resources/app.asar.unpacked/server"
+database:
+  path: db
+  db_name: Pos.db
+security:
+  jwt:
+    key: 123
+logger:
+  level: release
+  path_log: ../logs
+  file_log_name: main
+  max_size: 500
+  max_backups: 3
+  max_age: 90
+  compress: true
+jwt:
+  secret: productionsecretpos
+  expiration: 24
+  issuer: "pos"
+  audience: "pos"
+path:
+  path_storage: storage
+  path_image: images
+  path_file: files
+  path_avatar: avatars
+  path_web: ../out/renderer

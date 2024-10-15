@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Gắn title cho html -->
+    <title>Template</title>
+
+    <!-- CDN for Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Import file js/css -->
+    <script src="./static/js/app.js"></script>
+    <link rel="stylesheet" href="./static/css/app.css" />
+
+    <!-- Nếu tạo 1 đoạn script và code ở đây thì sẽ có vấn đề sau:
+        1. Nếu đoạn script có tác động đến các element html thì sẽ không thể tác động được vì element html chưa được load vào DOM
+         => Nguyên nhân vì khi load html vào DOM sẽ đi theo tuần tự từ trên xuống dưới, nên khi code js ở đây sẽ chạy trước khi html được load vào DOM
+        2. Nếu code js ở đây thì sẽ không thể sử dụng các thư viện khác như jquery, axios, ... vì chưa được load vào DOM
+         => Nguyên nhân vì khi code js ở đây sẽ chạy trước khi các thư viện khác được load vào DOM
+
+        ===> Vì vậy nên code js ở trong file js riêng và sử dụng ready function để chờ html load vào DOM
+            ===> Vậy có cần việc ready function trong file js không? Có, vì khi load file js vào html thì cũng sẽ chạy theo tuần tự từ trên xuống dưới
+
+        ### Lưu Ý: Có thể code css o ở đây vì css không cần phải chờ html load vào DOM ###
+    -->
+
+    <!-- Code css ở đây !!!! -->
+    <style>
+      /* 
+            Code css ở đây 
+            => Ưu điểm của css: 
+                + Viết code ngắn gọn, dễ đọc
+                + Hỗ trợ nhiều thuộc tính xử lý sẵn
+                + Hỗ trợ xử lý responsive, animation, ...
+
+            ### Cách chọn element css: ###
+            + Chọn element bằng tag: div, p, h1, ...
+            + Chọn element bằng class: .class-name
+            + Chọn element bằng id: #id-name
+            + Chọn element bằng attribute: [attribute=value]
+            + Chọn element bằng pseudo-class: :hover, :active, :focus, ...
+            + Chọn element bằng pseudo-element: ::before, ::after, ...
+            + Chọn element bằng combinators: div p, div > p, div + p, ...
+            + Chọn element bằng multiple selector: div, p, h1, ...
+            + Chọn element bằng multiple class: .class1.class2
+            + Chọn element bằng multiple attribute: [attribute1=value1][attribute2=value2]
+            + Chọn element bằng multiple pseudo-class: :hover:active:focus
+            + Chọn element bằng multiple pseudo-element: ::before::after
+            + Chọn element bằng multiple combinators: div p, div > p, div + p, ...
+
+            
+            ### Các thuộc tính css thường dùng: ###
+            + color: Màu chữ
+            + background-color: Màu nền
+            + font-size: Kích thước chữ
+            + font-family: Font chữ
+            + font-weight: Độ đậm của chữ
+            + font-style: Kiểu chữ
+            + text-align: Canh lề chữ
+            + text-decoration: Gạch chân, gạch ngang chữ
+            + text-transform: Chuyển đổi chữ hoa, chữ thường
+            + line-height: Khoảng cách giữa các dòng
+            + letter-spacing: Khoảng cách giữa các chữ cái
+            + word-spacing: Khoảng cách giữa các từ
+            + margin: Khoảng cách bên ngoài
+            + padding: Khoảng cách bên trong
+            + border: Viền
+            + border-radius: Bo tròn viền
+            + box-shadow: Đổ bóng
+            + display: Hiển thị
+            + position: Vị trí
+            + top, right, bottom, left: Vị trí top, right, bottom, left
+            + z-index: Thứ tự hiển thị
+            + width: Chiều rộng
+            + height: Chiều cao
+            + min-width: Chiều rộng tối thiểu
+            + min-height: Chiều cao tối thiểu
+            + max-width: Chiều rộng tối đa
+            + max-height: Chiều cao tối đa
+            + overflow: Tràn nội dung
+            + background-image: Hình nền
+            + background-size: Kích thước hình nền
+            + background-position: Vị trí hình nền
+            + background-repeat: Lặp lại hình nền
+            + background-attachment: Cố định hình nền
+            + background: Tổng hợp background
+            + transition: Hiệu ứng chuyển động
+            + animation: Hiệu ứng chuyển động
+            + transform: Hiệu ứng biến đổi
+            + filter: Hiệu ứng lọc
+            + flex: Hiệu ứng flexbox
+            + grid: Hiệu ứng grid
+            + ...
+            
+            ### Cách viết css: ###
+            + Inline css: Viết trực tiếp vào element html
+            + Internal css: Viết trong thẻ style ở trong file html
+            + External css: Viết trong file css riêng và import vào file html
+            + !important: Đặt sau giá trị thuộc tính để ghi đè giá trị của thuộc tính khác
+
+            ### Cách viết css cho responsive: ###
+            + Sử dụng media query để viết css cho responsive
+            + Cách viết media query: @media screen and (max-width: 600px) { ... }
+            + Cách viết responsive cho mobile: @media screen and (max-width: 600px) { ... }
+            + Cách viết responsive cho tablet: @media screen and (min-width: 601px) and (max-width: 1024px) { ... }
+            + Cách viết responsive cho desktop: @media screen and (min-width: 1025px) { ... }
+        */
+
+      /* Code css ở đây */
+      /* Example CSS */
+      body {
+        background-color: #f2f2f2; /* Màu nền */
+        font-family: Arial, sans-serif; /* Font chữ */
+      }
+
+      #root {
+        text-align: center; /* Canh lề chữ */
+        margin-top: 100px; /* Khoảng cách bên ngoài */
+      }
+
+      input {
+        padding: 10px; /* Khoảng cách bên trong */
+        border: 1px solid #ccc; /* Viền (Độ dày 1px, kiểu solid, mã màu #ccc) */
+        border-radius: 5px; /* Bo tròn viền */
+        outline: none; /* Bỏ viền khi focus */
+      }
+
+      .class-name {
+        color: blue;
+        font-weight: bold; /* Độ đậm của chữ */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root">
+      <input type="text" id="nameInput" placeholder="Nhập tên" />
+    </div>
+  </body>
+
+  <script>
+    // Code js ở đây !!!!
+    $(document).ready(function () {
+      // Ready function là hàm sẽ chạy khi html đã được load hoàn tất vào DOM !!!
+
+      /* ### Lưu ý: Khi sử dụng Jquery thì phải viết trong ready function để chờ html load vào DOM ###
+            => Ưu điểm của Jquery: 
+                + Viết code ngắn gọn, dễ đọc
+                + Hỗ trợ nhiều hàm xử lý sẵn
+                + Hỗ trợ xử lý event, ajax, ...
+        */
+
+      // Cách lấy element html bằng js/jquery
+      const inputElement = document.getElementById('inputID');
+      const inputElementJquery = $('#inputID');
+
+      // Cách thêm event cho element html bằng js/jquery
+      inputElement.addEventListener('input', function (event) {
+        // Event khi input thay đổi
+        console.log('Input change');
+      });
+      inputElementJquery.on('input', function (event) {
+        console.log('Input change');
+      });
+
+      /* 
+            ### Các event thường dùng: ###
+            + click: Khi click vào element
+            + dblclick: Khi double click vào element
+            + mousedown, mouseup: Xảy ra khi người dùng nhấn và nhả nút chuột tương ứng.
+            + mousemove: Khi di chuyển chuột trong 1 element
+            + mouseover: Khi di chuyển chuột vào element
+            + mouseout: Khi di chuyển chuột ra khỏi element
+            + input: Khi input thay đổi
+            + change: Khi input thay đổi và blur ra khỏi element
+            + keyup: Khi nhấn phím lên
+            + keydown: Khi nhấn phím xuống
+            + keypress: Khi nhấn phím giữ
+            + submit: Khi submit form
+            + focus: Khi focus vào element
+            + blur: Khi blur ra khỏi element
+            + scroll: Khi scroll trang
+            + resize: Khi resize trang
+            + load: Khi load trang
+            + unload: Khi thoát trang
+            + contextmenu: Khi click chuột phải
+            + ...
+            ===> tham số event sẽ trả về 1 object chứa thông tin về event đó. VD: event.target, event.currentTarget, event.preventDefault(), ...
+            preventDefault(): Ngăn chặn hành vi mặc định của event đó
+        */
+      //ChoQuyDaiGhe
+      // Cách thêm class cho element
+      inputElement.classList.add('class-name');
+      inputElementJquery.addClass('class-name');
+
+      // Cách thêm style cho element
+      inputElement.style.color = 'red';
+      inputElementJquery.css('color', 'red');
+
+      // Cách thêm attribute cho element
+      inputElement.setAttribute('data-id', '123');
+      inputElementJquery.attr('data-id', '123');
+
+      // Cách lấy attribute của element
+      const dataId = inputElement.getAttribute('data-id');
+      const dataIdJquery = inputElementJquery.attr('data-id');
+
+      // Cách thêm element html vào trong element khác
+      const divElement = document.createElement('div'); // Tạo 1 element div
+      divElement.innerHTML = 'Hello'; // Thêm nội dung cho element div
+      inputElement.appendChild(divElement); // js
+
+      const divElementQuery = '<div>Hello</div>'; // Tạo 1 element div
+      inputElementJquery.append(divElementQuery); // jquery
+
+      // Cách xóa element html
+      inputElement.removeChild(divElement); // js
+      inputElementJquery.remove(); // jquery
+
+      // Cách chèn element html vào trước element khác
+      inputElement.insertBefore(divElement, inputElement.firstChild); // js
+      inputElementJquery.prepend('<div>Hello</div>'); // jquery
+
+      // Cách thay đổi nội dung của element
+      inputElement.innerHTML = 'Hello'; // js
+      inputElementJquery.html('Hello'); // jquery
+
+      // Cách lấy nội dung của element
+      const innerText = inputElement.innerHTML; // js
+      const innerTextJquery = inputElementJquery.html(); // jquery
+
+      // Cách lấy giá trị của input
+      const value = inputElement.value; // js
+      const valueJquery = inputElementJquery.val(); // jquery
+
+      // Cách thay đổi giá trị của input
+      inputElement.value = 'Hello'; // js
+      inputElementJquery.val('Hello'); // jquery
+
+      // Cách lấy text của element
+      const text = inputElement.innerText; // js
+      const textJquery = inputElementJquery.text(); // jquery
+
+      // Cách thay đổi text của element
+      inputElement.innerText = 'Hello'; // js
+      inputElementJquery.text('Hello'); // jquery
+
+      // Cách sử dụng useQuerySelector (useQuerySelector trả về 1 element ~~ đầu tiên ~~ có điều kiện tìm kiếm)
+      const element = document.querySelector('.class-name'); // js
+      const elementJquery = $('.class-name'); // jquery
+
+      // Cách sử dụng useQuerySelectorAll (useQuerySelectorAll trả về 1 mảng các element có điều kiện tìm kiếm)
+      const elements = document.querySelectorAll('.class-name'); // js
+      const elementsJquery = $('.class-name'); // jquery
+    });
+  </script>
+</html>
