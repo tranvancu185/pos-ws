@@ -11,6 +11,7 @@ type ITableRepo interface {
 	GetTableByID(id int64) (*database.GetTableByIDRow, error)
 	CreateTable(params database.CreateTableParams) error
 	UpdateTableByID(params database.UpdateTableByIDParams) error
+	DeleteTableByID(params database.DeleteTableByIDParams) error
 }
 
 type tableRepo struct {
