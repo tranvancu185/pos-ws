@@ -8,13 +8,11 @@ type GetListTableRequest struct {
 }
 
 type CreateTableRequest struct {
-	TableCode string `json:"table_code"`
-	TableName string `json:"table_name"`
+	TableName string `json:"table_name" validate:"required"`
 }
 
 type UpdateTableRequest struct {
-	TableID     int64  `json:"table_id"`
-	TableCode   string `json:"table_code"`
+	TableID     int64  `json:"table_id" validate:"required"`
 	TableName   string `json:"table_name"`
 	TableStatus int64  `json:"table_status"`
 }

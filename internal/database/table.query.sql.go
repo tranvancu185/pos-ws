@@ -10,9 +10,9 @@ import (
 	"database/sql"
 )
 
-const createTable = `-- name: CreateTable :exec
+const createTable = `-- name: CreateTable :one
 INSERT INTO tables (table_name, table_code, table_status, table_properties, created_at, updated_at) 
-VALUES (?, ?, ?, ?, ?, ?)
+VALUES (?, ?, ?, ?, ?, ?) RETURNING table_id
 `
 
 type CreateTableParams struct {
@@ -24,8 +24,8 @@ type CreateTableParams struct {
 	UpdatedAt       sql.NullInt64  `json:"updated_at"`
 }
 
-func (q *Queries) CreateTable(ctx context.Context, arg CreateTableParams) error {
-	_, err := q.db.ExecContext(ctx, createTable,
+func (q *Queries) CreateTable(ctx context.Context, arg CreateTableParams) (int64, error) {
+	row := q.db.QueryRowContext(ctx, createTable,
 		arg.TableName,
 		arg.TableCode,
 		arg.TableStatus,
@@ -33,7 +33,9 @@ func (q *Queries) CreateTable(ctx context.Context, arg CreateTableParams) error 
 		arg.CreatedAt,
 		arg.UpdatedAt,
 	)
-	return err
+	var table_id int64
+	err := row.Scan(&table_id)
+	return table_id, err
 }
 
 const deleteTableByID = `-- name: DeleteTableByID :exec
@@ -244,11 +246,12 @@ func (q *Queries) UpdateTableByID(ctx context.Context, arg UpdateTableByIDParams
 	return err
 }
 
-const updateTableStatusByID = `-- name: UpdateTableStatusByID :exec
+const updateTableStatusByID = `-- name: UpdateTableStatusByID :one
 UPDATE tables
 SET table_status = ?,
     updated_at = ?
 WHERE table_id = ?
+RETURNING table_id
 `
 
 type UpdateTableStatusByIDParams struct {
@@ -257,7 +260,9 @@ type UpdateTableStatusByIDParams struct {
 	TableID     int64         `json:"table_id"`
 }
 
-func (q *Queries) UpdateTableStatusByID(ctx context.Context, arg UpdateTableStatusByIDParams) error {
-	_, err := q.db.ExecContext(ctx, updateTableStatusByID, arg.TableStatus, arg.UpdatedAt, arg.TableID)
-	return err
+func (q *Queries) UpdateTableStatusByID(ctx context.Context, arg UpdateTableStatusByIDParams) (int64, error) {
+	row := q.db.QueryRowContext(ctx, updateTableStatusByID, arg.TableStatus, arg.UpdatedAt, arg.TableID)
+	var table_id int64
+	err := row.Scan(&table_id)
+	return table_id, err
 }

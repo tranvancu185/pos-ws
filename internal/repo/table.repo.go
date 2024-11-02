@@ -1,6 +1,7 @@
 package repo
 
 import (
+	"time"
 	"tranvancu185/vey-pos-ws/global"
 	"tranvancu185/vey-pos-ws/internal/database"
 )
@@ -9,7 +10,7 @@ type ITableRepo interface {
 	GetListTable(params database.GetListTablesParams) ([]database.GetListTablesRow, error)
 	GetTotalTable(params database.GetTotalTablesParams) (int64, error)
 	GetTableByID(id int64) (*database.GetTableByIDRow, error)
-	CreateTable(params database.CreateTableParams) error
+	CreateTable(params database.CreateTableParams) (int64, error)
 	UpdateTableByID(params database.UpdateTableByIDParams) error
 	DeleteTableByID(params database.DeleteTableByIDParams) error
 }
@@ -48,15 +49,22 @@ func (ur *tableRepo) GetTableByID(id int64) (*database.GetTableByIDRow, error) {
 	return &result, nil
 }
 
-func (ur *tableRepo) CreateTable(params database.CreateTableParams) error {
-	err := ur.sqlc.CreateTable(ctx, params)
+func (ur *tableRepo) CreateTable(params database.CreateTableParams) (int64, error) {
+	currentTime := time.Now().Unix()
+	params.CreatedAt.Int64 = currentTime
+	params.UpdatedAt.Int64 = currentTime
+
+	id, err := ur.sqlc.CreateTable(ctx, params)
 	if err != nil {
-		return err
+		return 0, err
 	}
-	return nil
+	return id, nil
 }
 
 func (ur *tableRepo) UpdateTableByID(params database.UpdateTableByIDParams) error {
+	currentTime := time.Now().Unix()
+	params.UpdatedAt.Int64 = currentTime
+
 	err := ur.sqlc.UpdateTableByID(ctx, params)
 	if err != nil {
 		return err
@@ -65,6 +73,9 @@ func (ur *tableRepo) UpdateTableByID(params database.UpdateTableByIDParams) erro
 }
 
 func (ur *tableRepo) DeleteTableByID(params database.DeleteTableByIDParams) error {
+	currentTime := time.Now().Unix()
+	params.UpdatedAt.Int64 = currentTime
+
 	err := ur.sqlc.DeleteTableByID(ctx, params)
 	if err != nil {
 		return err

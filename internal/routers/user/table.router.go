@@ -30,11 +30,10 @@ func (tr *TableRouter) InitTableRouter(c *gin.Context, Router *gin.RouterGroup) 
 	{
 		TablePrivateRoute.Use(middlewares.AuthMiddleware(constants.FLAG_BYPASS_ROLE))
 
-		// TablePrivateRoute.POST("/", tableController.)
-		// TablePrivateRoute.GET("/detail/:id", tableController.GetTableByID)
-		// TablePrivateRoute.POST("/create", tableController.CreateTable)
-		// TablePrivateRoute.PUT("/update/:id", tableController.UpdateTable)
-		// TablePrivateRoute.DELETE("/delete/:id", tableController.DeleteTable)
+		TablePrivateRoute.POST("/create", tableController.CreateTable)
+		TablePrivateRoute.GET("/detail/:id", tableController.GetTableByID)
+		TablePrivateRoute.PUT("/update/:id", tableController.UpdateTable)
+		TablePrivateRoute.DELETE("/delete/:id", tableController.DeleteTableByID)
 	}
 
 }

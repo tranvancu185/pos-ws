@@ -1,7 +1,7 @@
 package service
 
 import (
-	"time"
+	"fmt"
 	"tranvancu185/vey-pos-ws/internal/database"
 	"tranvancu185/vey-pos-ws/internal/repo"
 	"tranvancu185/vey-pos-ws/pkg/request"
@@ -9,6 +9,11 @@ import (
 
 type ITableService interface {
 	GetListTable(params *request.GetListTableRequest) ([]database.GetListTablesRow, error)
+	CreateTable(params *request.CreateTableRequest) (int64, error)
+	UpdateTable(params *request.UpdateTableRequest) error
+	GetTableByID(id int64) (*database.GetTableByIDRow, error)
+	GetTotalTable(params *request.GetListTableRequest) (int64, error)
+	DeleteTableByID(id int64) error
 }
 
 type tableService struct {
@@ -52,17 +57,23 @@ func (ts *tableService) GetListTable(params *request.GetListTableRequest) ([]dat
 	return tables, nil
 }
 
-func (ts *tableService) CreateTable(params *request.CreateTableRequest) error {
+func (ts *tableService) CreateTable(params *request.CreateTableRequest) (int64, error) {
 	var input database.CreateTableParams
-
-	input.TableCode = params.TableCode
 	input.TableName = params.TableName
 
-	err := ts.tableRepo.CreateTable(input)
-	if err != nil {
-		return err
+	fmt.Println("input.TableName", input.TableName)
+	code, errCode := GenerateCode(COUNTER_TABLE)
+	if errCode != nil {
+		return 0, errCode
 	}
-	return nil
+	fmt.Println("code", code)
+	input.TableCode = code
+
+	id, err := ts.tableRepo.CreateTable(input)
+	if err != nil {
+		return 0, err
+	}
+	return id, nil
 }
 
 func (ts *tableService) UpdateTable(params *request.UpdateTableRequest) error {
@@ -113,10 +124,7 @@ func (ts *tableService) GetTotalTable(params *request.GetListTableRequest) (int6
 
 func (ts *tableService) DeleteTableByID(id int64) error {
 	var input database.DeleteTableByIDParams
-
-	currentTimeStamp := time.Now().Unix()
 	input.TableID = id
-	input.DeletedAt.Int64 = currentTimeStamp
 
 	err := ts.tableRepo.DeleteTableByID(input)
 	if err != nil {

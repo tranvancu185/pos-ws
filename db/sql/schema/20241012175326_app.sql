@@ -15,5 +15,5 @@ CREATE TABLE IF NOT EXISTS apps (
 
 -- +goose Down
 -- +goose StatementBegin
-DROP TABLE IF EXISTS rules;
+DROP TABLE IF EXISTS apps;
 -- +goose StatementEnd

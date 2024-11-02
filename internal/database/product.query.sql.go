@@ -10,8 +10,9 @@ import (
 	"database/sql"
 )
 
-const createProduct = `-- name: CreateProduct :exec
+const createProduct = `-- name: CreateProduct :one
 INSERT INTO products (product_name, product_code, product_description, product_price, product_status, product_properties) VALUES (?, ?, ?, ?, ?, ?)
+RETURNING product_id
 `
 
 type CreateProductParams struct {
@@ -23,8 +24,8 @@ type CreateProductParams struct {
 	ProductProperties  sql.NullString `json:"product_properties"`
 }
 
-func (q *Queries) CreateProduct(ctx context.Context, arg CreateProductParams) error {
-	_, err := q.db.ExecContext(ctx, createProduct,
+func (q *Queries) CreateProduct(ctx context.Context, arg CreateProductParams) (int64, error) {
+	row := q.db.QueryRowContext(ctx, createProduct,
 		arg.ProductName,
 		arg.ProductCode,
 		arg.ProductDescription,
@@ -32,7 +33,9 @@ func (q *Queries) CreateProduct(ctx context.Context, arg CreateProductParams) er
 		arg.ProductStatus,
 		arg.ProductProperties,
 	)
-	return err
+	var product_id int64
+	err := row.Scan(&product_id)
+	return product_id, err
 }
 
 const deleteProductByID = `-- name: DeleteProductByID :exec

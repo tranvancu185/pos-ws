@@ -12,4 +12,8 @@ const (
 	// Status message code
 	CODE_UPDATE_FAIL    = "update_fail"
 	CODE_UPDATE_SUCCESS = "update_success"
+
+	// Counter message code
+	CODE_COUNTER_NAME_REQUIRED = "counter_name_required"
+	CODE_COUNTER_NOT_FOUND     = "counter_not_found"
 )

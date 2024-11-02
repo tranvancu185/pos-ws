@@ -31,6 +31,14 @@ type Category struct {
 	DeletedAt           sql.NullInt64  `json:"deleted_at"`
 }
 
+type Counter struct {
+	CounterID     int64         `json:"counter_id"`
+	CounterName   string        `json:"counter_name"`
+	CounterNumber int64         `json:"counter_number"`
+	CreatedAt     sql.NullInt64 `json:"created_at"`
+	UpdatedAt     sql.NullInt64 `json:"updated_at"`
+}
+
 type Customer struct {
 	CustomerID          int64          `json:"customer_id"`
 	CustomerName        string         `json:"customer_name"`
@@ -60,12 +68,13 @@ type Order struct {
 }
 
 type OrderItem struct {
-	OdiID          int64 `json:"odi_id"`
-	OdiOrderID     int64 `json:"odi_order_id"`
-	OdiProductCode int64 `json:"odi_product_code"`
-	OdiQuantity    int64 `json:"odi_quantity"`
-	OdiPrice       int64 `json:"odi_price"`
-	OdiDiscount    int64 `json:"odi_discount"`
+	OdiID          int64          `json:"odi_id"`
+	OdiOrderID     int64          `json:"odi_order_id"`
+	OdiProductCode int64          `json:"odi_product_code"`
+	OdiQuantity    int64          `json:"odi_quantity"`
+	OdiPrice       int64          `json:"odi_price"`
+	OdiDiscount    int64          `json:"odi_discount"`
+	OdiProperties  sql.NullString `json:"odi_properties"`
 }
 
 type Payment struct {
@@ -91,6 +100,7 @@ type Product struct {
 	ProductStatus      int64          `json:"product_status"`
 	ProductProperties  sql.NullString `json:"product_properties"`
 	ProductCategoryID  int64          `json:"product_category_id"`
+	ProductImage       sql.NullString `json:"product_image"`
 	CreatedAt          sql.NullInt64  `json:"created_at"`
 	UpdatedAt          sql.NullInt64  `json:"updated_at"`
 	DeletedAt          sql.NullInt64  `json:"deleted_at"`

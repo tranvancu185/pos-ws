@@ -1,12 +1,13 @@
--- name: CreateTable :exec
+-- name: CreateTable :one
 INSERT INTO tables (table_name, table_code, table_status, table_properties, created_at, updated_at) 
-VALUES (?, ?, ?, ?, ?, ?);
+VALUES (?, ?, ?, ?, ?, ?) RETURNING table_id;
 
--- name: UpdateTableStatusByID :exec
+-- name: UpdateTableStatusByID :one
 UPDATE tables
 SET table_status = ?,
     updated_at = ?
-WHERE table_id = ?;
+WHERE table_id = ?
+RETURNING table_id;
 
 -- name: UpdateTableByID :exec
 UPDATE tables

@@ -28,8 +28,9 @@ ORDER BY ?
 LIMIT ? 
 OFFSET ?; 
 
--- name: CreateProduct :exec
-INSERT INTO products (product_name, product_code, product_description, product_price, product_status, product_properties) VALUES (?, ?, ?, ?, ?, ?);
+-- name: CreateProduct :one
+INSERT INTO products (product_name, product_code, product_description, product_price, product_status, product_properties) VALUES (?, ?, ?, ?, ?, ?)
+RETURNING product_id;
 
 -- name: UpdateProductStatusByID :exec
 UPDATE products

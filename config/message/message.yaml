@@ -4,6 +4,12 @@ internal_server_error: "Internal Server Error"
 check_constraint: "Check constraint fails"
 unique_constraint: "Duplicate entry"
 foreign_key_constraint: "Cannot delete or update a parent row: a foreign key constraint fails"
+counter_name_exists: "Counter name already exists"
+counter_not_found: "Counter not found"
+counter_created: "Counter created successfully"
+counter_updated: "Counter updated successfully"
+counter_deleted: "Counter deleted successfully"
+counter_name_required: "Counter name is required"
 
 # Authentication messages
 require_auth: "Authorization header is required"
