@@ -124,17 +124,3 @@ func (ts *tableService) DeleteTableByID(id int64) error {
 	}
 	return nil
 }
-
-func (ts *tableService) RestoreTableByID(id int64) error {
-	var input database.RestoreTableByIDParams
-	currentTimeStamp := time.Now().Unix()
-
-	input.TableID = id
-	input.UpdatedAt.Int64 = currentTimeStamp
-
-	err := ts.tableRepo.RestoreTableByID(input)
-	if err != nil {
-		return err
-	}
-	return nil
-}

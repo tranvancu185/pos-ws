@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS products (
   "product_status" INTEGER NOT NULL DEFAULT 1,
   "product_properties" TEXT DEFAULT NULL,
   "product_category_id" INTEGER NOT NULL DEFAULT 0,
+  "product_image" TEXT DEFAULT NULL,
   "created_at" INTEGER DEFAULT 0,
   "updated_at" INTEGER DEFAULT 0,
   "deleted_at" INTEGER DEFAULT 0

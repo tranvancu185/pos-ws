@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS order_items (
   "odi_quantity" INTEGER NOT NULL DEFAULT 0,
   "odi_price" INTEGER NOT NULL DEFAULT 0,
   "odi_discount" INTEGER NOT NULL DEFAULT 0,
+  "odi_properties" TEXT DEFAULT NULL,
   FOREIGN KEY ("odi_order_id") REFERENCES orders ("odi_order_id"),
   FOREIGN KEY ("odi_product_code") REFERENCES products ("odi_product_code")
 );
