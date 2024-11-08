@@ -39,7 +39,7 @@ WHERE table_id = ? OR table_code = ?;
 -- name: GetListTables :many
 SELECT table_id, table_name, table_code, table_status, table_properties
 FROM tables
-WHERE table_name LIKE ? OR table_code like ? OR table_status = ? OR (created_at >= ? AND created_at <= ?) OR (deleted_at >= ? AND deleted_at <= ?)
+WHERE (table_name LIKE ? OR table_code like ?) AND table_status = ? AND (created_at >= ? AND created_at <= ?) AND (deleted_at >= ? AND deleted_at <= ?)
 ORDER BY table_id DESC
 LIMIT ? OFFSET ?;
 
@@ -51,4 +51,4 @@ WHERE table_id = ?;
 -- name: GetTotalTables :one
 SELECT COUNT(table_id)
 FROM tables
-WHERE table_name LIKE ? OR table_code like ? OR table_status = ? OR (created_at >= ? AND created_at <= ?) OR (deleted_at >= ? AND deleted_at <= ?);
+WHERE (table_name LIKE ? OR table_code like ?) AND table_status = ? AND (created_at >= ? AND created_at <= ?) AND (deleted_at >= ? AND deleted_at <= ?);

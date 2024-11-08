@@ -4,13 +4,11 @@ import (
 	"errors"
 	"tranvancu185/vey-pos-ws/internal/constants"
 	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
-	"tranvancu185/vey-pos-ws/internal/database"
 	"tranvancu185/vey-pos-ws/internal/model/rq"
 	"tranvancu185/vey-pos-ws/internal/model/rs"
 	"tranvancu185/vey-pos-ws/internal/repo"
 	"tranvancu185/vey-pos-ws/pkg/auth"
 	"tranvancu185/vey-pos-ws/pkg/utils/ucrypto"
-	"tranvancu185/vey-pos-ws/pkg/utils/utime"
 )
 
 type IAuthService interface {
@@ -35,7 +33,7 @@ func NeuAuthService(
 
 func (as *authService) Login(userName, password string) (*rs.LoginResponse, error) {
 	// Check user exist
-	userInfo, err := as.authRepo.GetUserInfo(database.GetUserProfileParams{
+	userInfo, err := as.authRepo.GetUserInfo(rq.GetProfileRequest{
 		UserName: userName,
 	})
 	if err != nil {
@@ -64,19 +62,9 @@ func (as *authService) Register(userData *rq.RegisterRequest) (int64, error) {
 	if isExist == constants.BOOL_TRUE {
 		return 0, errors.New(messagecode.CODE_USER_EXIST)
 	}
-	// Create user
-	userForm := database.CreateUserParams{
-		UserName:        userData.UserName,
-		UserPassword:    ucrypto.GetHash(userData.UserPassword),
-		UserDisplayName: userData.UserDisplayName,
-		UserPhone:       userData.UserPhone,
-		UserAvatar:      userData.UserAvatar,
-		UserStatus:      userData.UserStatus,
-		CreatedAt:       utime.GetCurrentTimeUnix(),
-		UpdatedAt:       utime.GetCurrentTimeUnix(),
-	}
 
-	userId, err := as.authRepo.CreateUser(userForm)
+	// Create user
+	userId, err := as.authRepo.CreateUser(userData)
 	if err != nil {
 		return 0, err
 	}

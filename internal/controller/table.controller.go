@@ -4,6 +4,7 @@ import (
 	"strconv"
 	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
 	"tranvancu185/vey-pos-ws/internal/model/rq"
+	"tranvancu185/vey-pos-ws/internal/model/rs"
 	"tranvancu185/vey-pos-ws/internal/service"
 	"tranvancu185/vey-pos-ws/pkg/response"
 
@@ -24,7 +25,6 @@ func NewTableController(
 
 func (mc *TableController) GetListTable(c *gin.Context) {
 	var queryParams rq.GetListTableRequest
-
 	if err := c.ShouldBindQuery(&queryParams); err != nil {
 		c.Error(err)
 		return
@@ -36,9 +36,24 @@ func (mc *TableController) GetListTable(c *gin.Context) {
 		return
 	}
 
+	data := rs.GetListResponse{
+		Page:     queryParams.Page,
+		PageSize: queryParams.PageSize,
+		Rows:     result,
+	}
+
+	if queryParams.Total != 0 {
+		total, er := mc.tableService.GetTotalTable(&queryParams)
+		if er != nil {
+			c.Error(er)
+			return
+		}
+		data.Total = total
+	}
+
 	response.SuccessResponse(c, response.ParamsResponse{
 		Status:      response.StatusCodeSuccess,
-		Data:        result,
+		Data:        data,
 		MessageCode: messagecode.CODE_SUCCESS,
 	})
 }

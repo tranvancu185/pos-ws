@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"tranvancu185/vey-pos-ws/internal/database"
 	"tranvancu185/vey-pos-ws/internal/model/rq"
 	"tranvancu185/vey-pos-ws/internal/repo"
@@ -27,30 +26,7 @@ func NewTableService(tableRepo repo.ITableRepo) ITableService {
 }
 
 func (ts *tableService) GetListTable(params *rq.GetListTableRequest) ([]database.GetListTablesRow, error) {
-	var input database.GetListTablesParams
-
-	if params.PageSize != 0 {
-		input.Limit = params.PageSize
-	} else {
-		input.Limit = 10
-	}
-
-	if params.Page != 0 {
-		input.Offset = (params.Page - 1) * params.PageSize
-	} else {
-		input.Offset = 0
-	}
-
-	if params.Text != "" {
-		input.TableCode = params.Text
-		input.TableName = params.Text
-	}
-
-	if params.TableStatus != 0 {
-		input.TableStatus = params.TableStatus
-	}
-
-	tables, err := ts.tableRepo.GetListTable(input)
+	tables, err := ts.tableRepo.GetListTable(params)
 	if err != nil {
 		return nil, err
 	}
@@ -58,19 +34,14 @@ func (ts *tableService) GetListTable(params *rq.GetListTableRequest) ([]database
 }
 
 func (ts *tableService) CreateTable(params *rq.CreateTableRequest) (int64, error) {
-	var input database.CreateTableParams
-	input.TableName = params.TableName
-
-	fmt.Println("input.TableName", input.TableName)
 	code, errCode := NewCommonService().GenerateCode(COUNTER_TABLE)
 	if errCode != nil {
 		return 0, errCode
 	}
 
-	fmt.Println("code", code)
-	input.TableCode = code
+	params.TableCode = code
 
-	id, err := ts.tableRepo.CreateTable(input)
+	id, err := ts.tableRepo.CreateTable(params)
 	if err != nil {
 		return 0, err
 	}
@@ -78,17 +49,7 @@ func (ts *tableService) CreateTable(params *rq.CreateTableRequest) (int64, error
 }
 
 func (ts *tableService) UpdateTable(id int64, params *rq.UpdateTableRequest) error {
-	var input database.UpdateTableByIDParams
-
-	if params.TableName != "" {
-		input.TableName = params.TableName
-	}
-
-	if params.TableStatus != 0 {
-		input.TableStatus = params.TableStatus
-	}
-
-	err := ts.tableRepo.UpdateTableByID(input)
+	err := ts.tableRepo.UpdateTableByID(params)
 	if err != nil {
 		return err
 	}
@@ -104,18 +65,7 @@ func (ts *tableService) GetTableByID(id int64) (*database.GetTableByIDRow, error
 }
 
 func (ts *tableService) GetTotalTable(params *rq.GetListTableRequest) (int64, error) {
-	var input database.GetTotalTablesParams
-
-	if params.Text != "" {
-		input.TableCode = params.Text
-		input.TableName = params.Text
-	}
-
-	if params.TableStatus != 0 {
-		input.TableStatus = params.TableStatus
-	}
-
-	total, err := ts.tableRepo.GetTotalTable(input)
+	total, err := ts.tableRepo.GetTotalTable(params)
 	if err != nil {
 		return 0, err
 	}
@@ -123,10 +73,7 @@ func (ts *tableService) GetTotalTable(params *rq.GetListTableRequest) (int64, er
 }
 
 func (ts *tableService) DeleteTableByID(id int64) error {
-	var input database.DeleteTableByIDParams
-	input.TableID = id
-
-	err := ts.tableRepo.DeleteTableByID(input)
+	err := ts.tableRepo.DeleteTableByID(id)
 	if err != nil {
 		return err
 	}

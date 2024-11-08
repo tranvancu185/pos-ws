@@ -24,3 +24,23 @@ var COMMON_STATUS_OPTIONS = map[int]string{
 	COMMON_STATUS_COMPLETE: "Completed",
 	COMMON_STATUS_CANCEL:   "Canceled",
 }
+
+const (
+	// DEFAULT_LIMIT default limit
+	DEFAULT_LIMIT = 10
+	// DEFAULT_OFFSET default offset
+	DEFAULT_OFFSET = 0
+	// DEFAULT_SORT default sort
+	DEFAULT_SORT = "desc"
+	// DEFAULT_PAGE default page
+	DEFAULT_PAGE = 1
+	// DEFAULT_PAGE_SIZE default page size
+	DEFAULT_PAGE_SIZE = 20
+
+	// TYPE_LOG_INFO type log info
+	TYPE_LOG_INFO = "info"
+	// TYPE_LOG_ERROR type log error
+	TYPE_LOG_ERROR = "error"
+	// TYPE_LOG_WARN type log warn
+	TYPE_LOG_WARN = "warn"
+)

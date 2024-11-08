@@ -1,18 +1,20 @@
 package repo
 
 import (
-	"time"
 	"tranvancu185/vey-pos-ws/global"
+	"tranvancu185/vey-pos-ws/internal/constants"
 	"tranvancu185/vey-pos-ws/internal/database"
+	"tranvancu185/vey-pos-ws/internal/model/rq"
+	"tranvancu185/vey-pos-ws/pkg/utils/utime"
 )
 
 type ITableRepo interface {
-	GetListTable(params database.GetListTablesParams) ([]database.GetListTablesRow, error)
-	GetTotalTable(params database.GetTotalTablesParams) (int64, error)
+	GetListTable(params *rq.GetListTableRequest) ([]database.GetListTablesRow, error)
+	GetTotalTable(params *rq.GetListTableRequest) (int64, error)
 	GetTableByID(id int64) (*database.GetTableByIDRow, error)
-	CreateTable(params database.CreateTableParams) (int64, error)
-	UpdateTableByID(params database.UpdateTableByIDParams) error
-	DeleteTableByID(params database.DeleteTableByIDParams) error
+	CreateTable(params *rq.CreateTableRequest) (int64, error)
+	UpdateTableByID(params *rq.UpdateTableRequest) error
+	DeleteTableByID(id int64) error
 }
 
 type tableRepo struct {
@@ -25,16 +27,51 @@ func NewTableRepo() ITableRepo {
 	}
 }
 
-func (ur *tableRepo) GetListTable(params database.GetListTablesParams) ([]database.GetListTablesRow, error) {
-	result, err := ur.sqlc.GetListTables(ctx, params)
+func (ur *tableRepo) GetListTable(params *rq.GetListTableRequest) ([]database.GetListTablesRow, error) {
+
+	var input database.GetListTablesParams
+
+	if params.PageSize != 0 {
+		input.Limit = params.PageSize
+	} else {
+		input.Limit = constants.DEFAULT_LIMIT
+	}
+
+	if params.Page != 0 {
+		input.Offset = (params.Page - 1) * params.PageSize
+	} else {
+		input.Offset = constants.DEFAULT_OFFSET
+	}
+
+	if params.Text != "" {
+		input.TableCode = params.Text
+		input.TableName = params.Text
+	}
+
+	if params.TableStatus != 0 {
+		input.TableStatus = params.TableStatus
+	}
+
+	result, err := ur.sqlc.GetListTables(ctx, input)
 	if err != nil {
 		return nil, err
 	}
 	return result, nil
 }
 
-func (ur *tableRepo) GetTotalTable(params database.GetTotalTablesParams) (int64, error) {
-	total, err := ur.sqlc.GetTotalTables(ctx, params)
+func (ur *tableRepo) GetTotalTable(params *rq.GetListTableRequest) (int64, error) {
+	var input database.GetTotalTablesParams
+
+	if params.Text != "" {
+		input.TableCode = params.Text
+		input.TableName = params.Text
+	}
+
+	if params.TableStatus != 0 {
+		input.TableStatus = params.TableStatus
+	}
+
+	total, err := ur.sqlc.GetTotalTables(ctx, input)
 	if err != nil {
 		return 0, err
 	}
@@ -49,34 +86,49 @@ func (ur *tableRepo) GetTableByID(id int64) (*database.GetTableByIDRow, error) {
 	return &result, nil
 }
 
-func (ur *tableRepo) CreateTable(params database.CreateTableParams) (int64, error) {
-	currentTime := time.Now().Unix()
-	params.CreatedAt.Int64 = currentTime
-	params.UpdatedAt.Int64 = currentTime
+func (ur *tableRepo) CreateTable(params *rq.CreateTableRequest) (int64, error) {
+	var input database.CreateTableParams
+	currentTime := utime.GetCurrentTimeUnix()
 
-	id, err := ur.sqlc.CreateTable(ctx, params)
+	input.TableName = params.TableName
+	input.CreatedAt.Int64 = currentTime
+	input.UpdatedAt.Int64 = currentTime
+
+	id, err := ur.sqlc.CreateTable(ctx, input)
 	if err != nil {
 		return 0, err
 	}
 	return id, nil
 }
 
-func (ur *tableRepo) UpdateTableByID(params database.UpdateTableByIDParams) error {
-	currentTime := time.Now().Unix()
-	params.UpdatedAt.Int64 = currentTime
+func (ur *tableRepo) UpdateTableByID(params *rq.UpdateTableRequest) error {
+	var input database.UpdateTableByIDParams
+	currentTime := utime.GetCurrentTimeUnix()
 
-	err := ur.sqlc.UpdateTableByID(ctx, params)
+	if params.TableName != "" {
+		input.TableName = params.TableName
+	}
+
+	if params.TableStatus != 0 {
+		input.TableStatus = params.TableStatus
+	}
+
+	input.UpdatedAt.Int64 = currentTime
+
+	err := ur.sqlc.UpdateTableByID(ctx, input)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (ur *tableRepo) DeleteTableByID(params database.DeleteTableByIDParams) error {
-	currentTime := time.Now().Unix()
-	params.UpdatedAt.Int64 = currentTime
+func (ur *tableRepo) DeleteTableByID(id int64) error {
+	currentTime := utime.GetCurrentTimeUnix()
+	var input database.DeleteTableByIDParams
+	input.TableID = id
+	input.UpdatedAt.Int64 = currentTime
 
-	err := ur.sqlc.DeleteTableByID(ctx, params)
+	err := ur.sqlc.DeleteTableByID(ctx, input)
 	if err != nil {
 		return err
 	}

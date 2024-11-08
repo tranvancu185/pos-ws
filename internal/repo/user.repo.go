@@ -1,13 +1,15 @@
 package repo
 
 import (
+	"strconv"
+	"strings"
 	"tranvancu185/vey-pos-ws/global"
 	"tranvancu185/vey-pos-ws/internal/database"
 	"tranvancu185/vey-pos-ws/internal/model/rq"
 )
 
 type IUserRepo interface {
-	GetListUsers(params database.GetListUserByFilterParams) ([]database.GetListUserByFilterRow, error)
+	GetListUsers(params *rq.GetListUsersRequest) ([]database.GetListUserByFilterRow, error)
 	GetUserByID(id int64) (*database.GetUserByIDRow, error)
 	UpdateUser(id int64, params *rq.UpdateUserRequest) error
 	UpdateUserPassword(id int64, password string) error
@@ -25,8 +27,60 @@ func NewUserRepo() IUserRepo {
 }
 
 // GetListUsers implements IUserRepo.
-func (ur *userRepo) GetListUsers(params database.GetListUserByFilterParams) ([]database.GetListUserByFilterRow, error) {
-	users, err := ur.sqlc.GetListUserByFilter(ctx, params)
+func (ur *userRepo) GetListUsers(params *rq.GetListUsersRequest) ([]database.GetListUserByFilterRow, error) {
+	var input database.GetListUserByFilterParams
+
+	if params.PageSize != 0 {
+		input.Limit = params.PageSize
+	} else {
+		input.Limit = 10
+	}
+
+	if params.Page != 0 {
+		input.Offset = (params.Page - 1) * params.PageSize
+	} else {
+		input.Offset = 0
+	}
+
+	if params.UserName != "" {
+		input.UserDisplayName = params.UserName
+	}
+
+	if params.UserPhone != "" {
+		input.UserPhone = params.UserPhone
+	}
+
+	if params.StatusIds != "" {
+		status := strings.Split(params.StatusIds, ",")
+		for _, s := range status {
+			id, err := strconv.ParseInt(s, 10, 64)
+			if err != nil {
+				return nil, err
+			}
+			input.UserStatusIds = append(input.UserStatusIds, id)
+		}
+	}
+
+	if params.RoleIds != "" {
+		status := strings.Split(params.RoleIds, ",")
+		for _, s := range status {
+			id, err := strconv.ParseInt(s, 10, 64)
+			if err != nil {
+				return nil, err
+			}
+			input.UserRoleIds = append(input.UserRoleIds, id)
+		}
+	}
+
+	if params.FromDate > 0 {
+		input.CreatedAt = params.FromDate
+	}
+
+	if params.ToDate > 0 {
+		input.CreatedAt_2 = params.ToDate
+	}
+
+	users, err := ur.sqlc.GetListUserByFilter(ctx, input)
 	if err != nil {
 		return nil, err
 	}

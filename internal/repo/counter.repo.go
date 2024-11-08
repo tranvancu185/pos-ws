@@ -3,10 +3,10 @@ package repo
 import (
 	"database/sql"
 	"errors"
-	"time"
 	"tranvancu185/vey-pos-ws/global"
 	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
 	"tranvancu185/vey-pos-ws/internal/database"
+	"tranvancu185/vey-pos-ws/pkg/utils/utime"
 )
 
 type ICounterRepo interface {
@@ -38,7 +38,7 @@ func (cr *counterRepo) CreateCounter(counterName string) error {
 		return errors.New(messagecode.CODE_COUNTER_NAME_REQUIRED)
 	}
 
-	currentTime := time.Now().Unix()
+	currentTime := utime.GetCurrentTimeUnix()
 
 	params := database.CreateCounterParams{
 		CounterName: counterName,
@@ -59,7 +59,7 @@ func (cr *counterRepo) UpdateCounter(counterName string, counterNumber int64) er
 		return errors.New(messagecode.CODE_COUNTER_NAME_REQUIRED)
 	}
 
-	currentTime := time.Now().Unix()
+	currentTime := utime.GetCurrentTimeUnix()
 
 	params := database.UpdateCounterParams{
 		CounterName:   counterName,

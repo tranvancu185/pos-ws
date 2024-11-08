@@ -1,13 +1,15 @@
 package rq
 
 type GetListUsersRequest struct {
-	GetListRequest
-	RoleIds   string `json:"role_id"`
-	UserPhone string `json:"phone"`
-	UserName  string `json:"name"`
-	StatusIds string `json:"status"`
-	FromDate  int64  `json:"from_date"`
-	ToDate    int64  `json:"to_date"`
+	PageSize  int64  `form:"page_size"`
+	Page      int64  `form:"page"`
+	Total     int64  `form:"total"`
+	RoleIds   string `form:"role_id"`
+	UserPhone string `form:"phone"`
+	UserName  string `form:"name"`
+	StatusIds string `form:"status"`
+	FromDate  int64  `form:"from_date"`
+	ToDate    int64  `form:"to_date"`
 }
 
 type UpdateUserRequest struct {

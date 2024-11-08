@@ -2,10 +2,10 @@ package repo
 
 import (
 	"encoding/json"
-	"time"
 	"tranvancu185/vey-pos-ws/global"
 	"tranvancu185/vey-pos-ws/internal/database"
 	"tranvancu185/vey-pos-ws/internal/model/rq"
+	"tranvancu185/vey-pos-ws/pkg/utils/utime"
 )
 
 type IAppRepo interface {
@@ -58,7 +58,7 @@ func (ar *appRepo) GetAppInfoByID(id int64) (*database.App, error) {
 
 func (ar *appRepo) UpdateAppInfo(id int64, params rq.SetAppRequest) error {
 	var UpdateInput database.UpdateAppByIDParams
-	currentTime := time.Now().Unix()
+	currentTime := utime.GetCurrentTimeUnix()
 
 	UpdateInput.AppID = id
 	UpdateInput.UpdatedAt.Int64 = currentTime
@@ -92,7 +92,7 @@ func (ar *appRepo) UpdateAppInfo(id int64, params rq.SetAppRequest) error {
 
 func (ar *appRepo) CreateApp(params rq.SetAppRequest) (int64, error) {
 	var CreateInput database.CreateAppParams
-	currentTime := time.Now().Unix()
+	currentTime := utime.GetCurrentTimeUnix()
 
 	CreateInput.AppName = params.AppName
 	CreateInput.AppCompany = params.AppCompany

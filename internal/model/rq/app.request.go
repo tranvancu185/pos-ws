@@ -9,9 +9,11 @@ type SetAppRequest struct {
 }
 
 type GetListAppRequest struct {
-	GetListRequest
-	AppName    string `json:"app_name"`
-	AppCompany string `json:"app_company"`
-	AppVersion string `json:"app_version"`
-	AppStatus  int64  `json:"app_status"`
+	PageSize   int64  `form:"page_size"`
+	Page       int64  `form:"page"`
+	Total      int64  `form:"total"`
+	AppName    string `form:"app_name"`
+	AppCompany string `form:"app_company"`
+	AppVersion string `form:"app_version"`
+	AppStatus  int64  `form:"app_status"`
 }
