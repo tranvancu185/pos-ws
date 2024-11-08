@@ -1,4 +1,4 @@
-package request
+package rq
 
 type GetListTableRequest struct {
 	GetListRequest
@@ -12,7 +12,6 @@ type CreateTableRequest struct {
 }
 
 type UpdateTableRequest struct {
-	TableID     int64  `json:"table_id" validate:"required"`
 	TableName   string `json:"table_name"`
 	TableStatus int64  `json:"table_status"`
 }

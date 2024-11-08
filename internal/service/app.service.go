@@ -4,16 +4,16 @@ import (
 	"database/sql"
 	"tranvancu185/vey-pos-ws/internal/constants"
 	"tranvancu185/vey-pos-ws/internal/database"
+	"tranvancu185/vey-pos-ws/internal/model/rq"
 	"tranvancu185/vey-pos-ws/internal/repo"
-	"tranvancu185/vey-pos-ws/pkg/request"
 )
 
 type IAppService interface {
-	GetListApp(params request.GetListAppRequest) ([]database.App, error)
-	SetAppInfo(params request.SetAppRequest) (int64, error)
+	GetListApp(params rq.GetListAppRequest) ([]database.App, error)
+	SetAppInfo(params rq.SetAppRequest) (int64, error)
 	GetAppInfoByID(id int64) (*database.App, error)
-	UpdateAppInfo(id int64, params request.SetAppRequest) error
-	CreateApp(params request.SetAppRequest) (int64, error)
+	UpdateAppInfo(id int64, params rq.SetAppRequest) error
+	CreateApp(params rq.SetAppRequest) (int64, error)
 }
 
 type appService struct {
@@ -28,7 +28,7 @@ func NeuAppService(
 	}
 }
 
-func (as *appService) GetListApp(params request.GetListAppRequest) ([]database.App, error) {
+func (as *appService) GetListApp(params rq.GetListAppRequest) ([]database.App, error) {
 	return as.appRepo.GetListApp(params)
 }
 
@@ -36,18 +36,18 @@ func (as *appService) GetAppInfoByID(id int64) (*database.App, error) {
 	return as.appRepo.GetAppInfoByID(id)
 }
 
-func (as *appService) UpdateAppInfo(id int64, params request.SetAppRequest) error {
+func (as *appService) UpdateAppInfo(id int64, params rq.SetAppRequest) error {
 	return as.appRepo.UpdateAppInfo(id, params)
 }
 
-func (as *appService) CreateApp(params request.SetAppRequest) (int64, error) {
+func (as *appService) CreateApp(params rq.SetAppRequest) (int64, error) {
 	return as.appRepo.CreateApp(params)
 }
 
-func (as *appService) SetAppInfo(params request.SetAppRequest) (int64, error) {
+func (as *appService) SetAppInfo(params rq.SetAppRequest) (int64, error) {
 	var isNewApp bool
 	// Get App Pending
-	appPending, err := as.GetListApp(request.GetListAppRequest{
+	appPending, err := as.GetListApp(rq.GetListAppRequest{
 		AppStatus:  constants.APP_STATUS_PENDING,
 		AppVersion: params.AppVersion,
 	})

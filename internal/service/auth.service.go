@@ -5,16 +5,17 @@ import (
 	"tranvancu185/vey-pos-ws/internal/constants"
 	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
 	"tranvancu185/vey-pos-ws/internal/database"
+	"tranvancu185/vey-pos-ws/internal/model/rq"
+	"tranvancu185/vey-pos-ws/internal/model/rs"
 	"tranvancu185/vey-pos-ws/internal/repo"
 	"tranvancu185/vey-pos-ws/pkg/auth"
-	"tranvancu185/vey-pos-ws/pkg/request"
-	"tranvancu185/vey-pos-ws/pkg/response"
-	"tranvancu185/vey-pos-ws/pkg/utils"
+	"tranvancu185/vey-pos-ws/pkg/utils/ucrypto"
+	"tranvancu185/vey-pos-ws/pkg/utils/utime"
 )
 
 type IAuthService interface {
-	Login(userName, password string) (*response.LoginResponse, error)
-	Register(user_data *request.RegisterRequest) (int64, error)
+	Login(userName, password string) (*rs.LoginResponse, error)
+	Register(user_data *rq.RegisterRequest) (int64, error)
 }
 
 type authService struct {
@@ -32,7 +33,7 @@ func NeuAuthService(
 	}
 }
 
-func (as *authService) Login(userName, password string) (*response.LoginResponse, error) {
+func (as *authService) Login(userName, password string) (*rs.LoginResponse, error) {
 	// Check user exist
 	userInfo, err := as.authRepo.GetUserInfo(database.GetUserProfileParams{
 		UserName: userName,
@@ -41,7 +42,7 @@ func (as *authService) Login(userName, password string) (*response.LoginResponse
 		return nil, err
 	}
 	// Check password
-	if !utils.CompareHash(userInfo.UserPassword, password) {
+	if !ucrypto.CompareHash(userInfo.UserPassword, password) {
 		return nil, errors.New(messagecode.CODE_INVALID_LOGIN)
 	}
 	// Create token
@@ -49,7 +50,7 @@ func (as *authService) Login(userName, password string) (*response.LoginResponse
 	if err != nil {
 		return nil, err
 	}
-	result := &response.LoginResponse{
+	result := &rs.LoginResponse{
 		UserID: userInfo.UserID,
 		Token:  token,
 	}
@@ -57,7 +58,7 @@ func (as *authService) Login(userName, password string) (*response.LoginResponse
 	return result, nil
 }
 
-func (as *authService) Register(userData *request.RegisterRequest) (int64, error) {
+func (as *authService) Register(userData *rq.RegisterRequest) (int64, error) {
 	// Check user exist
 	isExist := as.authRepo.CheckUserExist(userData.UserName, userData.UserPhone)
 	if isExist == constants.BOOL_TRUE {
@@ -66,13 +67,13 @@ func (as *authService) Register(userData *request.RegisterRequest) (int64, error
 	// Create user
 	userForm := database.CreateUserParams{
 		UserName:        userData.UserName,
-		UserPassword:    utils.GetHash(userData.UserPassword),
+		UserPassword:    ucrypto.GetHash(userData.UserPassword),
 		UserDisplayName: userData.UserDisplayName,
 		UserPhone:       userData.UserPhone,
 		UserAvatar:      userData.UserAvatar,
 		UserStatus:      userData.UserStatus,
-		CreatedAt:       utils.GetCurrentTimeUnix(),
-		UpdatedAt:       utils.GetCurrentTimeUnix(),
+		CreatedAt:       utime.GetCurrentTimeUnix(),
+		UpdatedAt:       utime.GetCurrentTimeUnix(),
 	}
 
 	userId, err := as.authRepo.CreateUser(userForm)

@@ -5,14 +5,14 @@ import (
 	"time"
 	"tranvancu185/vey-pos-ws/global"
 	"tranvancu185/vey-pos-ws/internal/database"
-	"tranvancu185/vey-pos-ws/pkg/request"
+	"tranvancu185/vey-pos-ws/internal/model/rq"
 )
 
 type IAppRepo interface {
-	GetListApp(params request.GetListAppRequest) ([]database.App, error)
+	GetListApp(params rq.GetListAppRequest) ([]database.App, error)
 	GetAppInfoByID(id int64) (*database.App, error)
-	UpdateAppInfo(id int64, params request.SetAppRequest) error
-	CreateApp(params request.SetAppRequest) (int64, error)
+	UpdateAppInfo(id int64, params rq.SetAppRequest) error
+	CreateApp(params rq.SetAppRequest) (int64, error)
 }
 
 type appRepo struct {
@@ -25,7 +25,7 @@ func NewAppRepo() IAppRepo {
 	}
 }
 
-func (ar *appRepo) GetListApp(params request.GetListAppRequest) ([]database.App, error) {
+func (ar *appRepo) GetListApp(params rq.GetListAppRequest) ([]database.App, error) {
 	var GetListAppParams database.GetListAppsParams
 
 	if params.AppName != "" {
@@ -56,7 +56,7 @@ func (ar *appRepo) GetAppInfoByID(id int64) (*database.App, error) {
 	return &app, nil
 }
 
-func (ar *appRepo) UpdateAppInfo(id int64, params request.SetAppRequest) error {
+func (ar *appRepo) UpdateAppInfo(id int64, params rq.SetAppRequest) error {
 	var UpdateInput database.UpdateAppByIDParams
 	currentTime := time.Now().Unix()
 
@@ -90,7 +90,7 @@ func (ar *appRepo) UpdateAppInfo(id int64, params request.SetAppRequest) error {
 	return nil
 }
 
-func (ar *appRepo) CreateApp(params request.SetAppRequest) (int64, error) {
+func (ar *appRepo) CreateApp(params rq.SetAppRequest) (int64, error) {
 	var CreateInput database.CreateAppParams
 	currentTime := time.Now().Unix()
 

@@ -1,4 +1,4 @@
-package request
+package rq
 
 type GetListUsersRequest struct {
 	GetListRequest

@@ -3,13 +3,13 @@ package repo
 import (
 	"tranvancu185/vey-pos-ws/global"
 	"tranvancu185/vey-pos-ws/internal/database"
-	"tranvancu185/vey-pos-ws/pkg/request"
+	"tranvancu185/vey-pos-ws/internal/model/rq"
 )
 
 type IUserRepo interface {
 	GetListUsers(params database.GetListUserByFilterParams) ([]database.GetListUserByFilterRow, error)
 	GetUserByID(id int64) (*database.GetUserByIDRow, error)
-	UpdateUser(id int64, params *request.UpdateUserRequest) error
+	UpdateUser(id int64, params *rq.UpdateUserRequest) error
 	UpdateUserPassword(id int64, password string) error
 	UpdateUserAvatarByID(id int64, avatar string) error
 }
@@ -49,7 +49,7 @@ func (ur *userRepo) GetUserByID(id int64) (*database.GetUserByIDRow, error) {
 	return &user, nil
 }
 
-func (ur *userRepo) UpdateUser(id int64, params *request.UpdateUserRequest) error {
+func (ur *userRepo) UpdateUser(id int64, params *rq.UpdateUserRequest) error {
 	input := database.UpdateUserByIDParams{
 		UserID: id,
 	}

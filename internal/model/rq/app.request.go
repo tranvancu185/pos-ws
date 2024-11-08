@@ -1,4 +1,4 @@
-package request
+package rq
 
 type SetAppRequest struct {
 	AppName    string                 `json:"app_name"`

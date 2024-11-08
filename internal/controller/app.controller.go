@@ -4,9 +4,10 @@ import (
 	"path/filepath"
 	"tranvancu185/vey-pos-ws/global"
 	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
+	"tranvancu185/vey-pos-ws/internal/model/rq"
+	"tranvancu185/vey-pos-ws/internal/model/rs"
 	"tranvancu185/vey-pos-ws/internal/service"
 	"tranvancu185/vey-pos-ws/pkg/electron"
-	"tranvancu185/vey-pos-ws/pkg/request"
 	"tranvancu185/vey-pos-ws/pkg/response"
 
 	"github.com/gin-gonic/gin"
@@ -25,7 +26,7 @@ func NewAppController(
 }
 
 func (ac *AppController) GetListApp(c *gin.Context) {
-	var queryParams request.GetListAppRequest
+	var queryParams rq.GetListAppRequest
 
 	if err := c.ShouldBindQuery(&queryParams); err != nil {
 		c.Error(err)
@@ -38,7 +39,7 @@ func (ac *AppController) GetListApp(c *gin.Context) {
 		return
 	}
 
-	data := response.GetListResponse{
+	data := rs.GetListResponse{
 		Page:     queryParams.Page,
 		PageSize: queryParams.PageSize,
 		Total:    queryParams.Total,
@@ -64,7 +65,7 @@ func (ac *AppController) GetVersion(c *gin.Context) {
 }
 
 func (ac *AppController) SetAppInfo(c *gin.Context) {
-	var params request.SetAppRequest
+	var params rq.SetAppRequest
 
 	if err := c.ShouldBindJSON(&params); err != nil {
 		c.Error(err)

@@ -8,13 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type GetListResponse struct {
-	Page     int64       `json:"page"`
-	PageSize int64       `json:"page_size"`
-	Total    int64       `json:"total"`
-	Rows     interface{} `json:"rows"`
-}
-
 type Response struct {
 	Status      int         `json:"status"`       // Status code
 	MessageCode string      `json:"message_code"` // Message code

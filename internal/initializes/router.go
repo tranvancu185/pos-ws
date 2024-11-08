@@ -25,7 +25,7 @@ func InitRouter() *gin.Engine {
 		router = gin.New()
 	}
 
-	ExeStatic(router)
+	router = ExeStatic(router)
 
 	// middleware
 	router.Use(gzip.Gzip(gzip.DefaultCompression))
@@ -72,6 +72,8 @@ func InitRouter() *gin.Engine {
 	return router
 }
 
-func ExeStatic(router *gin.Engine) {
-	router.Use(static.Serve("/", static.LocalFile(global.Config.Path.PathWeb, true)))
+func ExeStatic(router *gin.Engine) *gin.Engine {
+	// router.Use(static.Serve("/", static.LocalFile(global.Config.Path.PathWeb, true)))
+	router.Use(static.Serve("/", static.LocalFile("", true)))
+	return router
 }

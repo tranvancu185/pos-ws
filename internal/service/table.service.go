@@ -3,16 +3,16 @@ package service
 import (
 	"fmt"
 	"tranvancu185/vey-pos-ws/internal/database"
+	"tranvancu185/vey-pos-ws/internal/model/rq"
 	"tranvancu185/vey-pos-ws/internal/repo"
-	"tranvancu185/vey-pos-ws/pkg/request"
 )
 
 type ITableService interface {
-	GetListTable(params *request.GetListTableRequest) ([]database.GetListTablesRow, error)
-	CreateTable(params *request.CreateTableRequest) (int64, error)
-	UpdateTable(params *request.UpdateTableRequest) error
+	GetListTable(params *rq.GetListTableRequest) ([]database.GetListTablesRow, error)
+	CreateTable(params *rq.CreateTableRequest) (int64, error)
+	UpdateTable(id int64, params *rq.UpdateTableRequest) error
 	GetTableByID(id int64) (*database.GetTableByIDRow, error)
-	GetTotalTable(params *request.GetListTableRequest) (int64, error)
+	GetTotalTable(params *rq.GetListTableRequest) (int64, error)
 	DeleteTableByID(id int64) error
 }
 
@@ -26,7 +26,7 @@ func NewTableService(tableRepo repo.ITableRepo) ITableService {
 	}
 }
 
-func (ts *tableService) GetListTable(params *request.GetListTableRequest) ([]database.GetListTablesRow, error) {
+func (ts *tableService) GetListTable(params *rq.GetListTableRequest) ([]database.GetListTablesRow, error) {
 	var input database.GetListTablesParams
 
 	if params.PageSize != 0 {
@@ -57,15 +57,16 @@ func (ts *tableService) GetListTable(params *request.GetListTableRequest) ([]dat
 	return tables, nil
 }
 
-func (ts *tableService) CreateTable(params *request.CreateTableRequest) (int64, error) {
+func (ts *tableService) CreateTable(params *rq.CreateTableRequest) (int64, error) {
 	var input database.CreateTableParams
 	input.TableName = params.TableName
 
 	fmt.Println("input.TableName", input.TableName)
-	code, errCode := GenerateCode(COUNTER_TABLE)
+	code, errCode := NewCommonService().GenerateCode(COUNTER_TABLE)
 	if errCode != nil {
 		return 0, errCode
 	}
+
 	fmt.Println("code", code)
 	input.TableCode = code
 
@@ -76,9 +77,8 @@ func (ts *tableService) CreateTable(params *request.CreateTableRequest) (int64, 
 	return id, nil
 }
 
-func (ts *tableService) UpdateTable(params *request.UpdateTableRequest) error {
+func (ts *tableService) UpdateTable(id int64, params *rq.UpdateTableRequest) error {
 	var input database.UpdateTableByIDParams
-	input.TableID = params.TableID
 
 	if params.TableName != "" {
 		input.TableName = params.TableName
@@ -103,7 +103,7 @@ func (ts *tableService) GetTableByID(id int64) (*database.GetTableByIDRow, error
 	return table, nil
 }
 
-func (ts *tableService) GetTotalTable(params *request.GetListTableRequest) (int64, error) {
+func (ts *tableService) GetTotalTable(params *rq.GetListTableRequest) (int64, error) {
 	var input database.GetTotalTablesParams
 
 	if params.Text != "" {

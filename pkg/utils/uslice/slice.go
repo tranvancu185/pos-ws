@@ -1,4 +1,4 @@
-package utils
+package uslice
 
 // Where function filter elements based on conditions.
 // Where return a new slice.

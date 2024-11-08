@@ -6,10 +6,12 @@ import (
 	"strconv"
 	"tranvancu185/vey-pos-ws/global"
 	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
+	"tranvancu185/vey-pos-ws/internal/model/rq"
+	"tranvancu185/vey-pos-ws/internal/model/rs"
 	"tranvancu185/vey-pos-ws/internal/service"
-	"tranvancu185/vey-pos-ws/pkg/request"
 	"tranvancu185/vey-pos-ws/pkg/response"
-	"tranvancu185/vey-pos-ws/pkg/utils"
+	"tranvancu185/vey-pos-ws/pkg/utils/ufile"
+	urand "tranvancu185/vey-pos-ws/pkg/utils/urandom"
 
 	"github.com/gin-gonic/gin"
 )
@@ -64,7 +66,7 @@ func (uc *UserController) GetUserByID(c *gin.Context) {
 }
 
 func (uc *UserController) GetListUsers(c *gin.Context) {
-	var queryParams request.GetListUsersRequest
+	var queryParams rq.GetListUsersRequest
 
 	if err := c.ShouldBindQuery(&queryParams); err != nil {
 		c.Error(err)
@@ -77,7 +79,7 @@ func (uc *UserController) GetListUsers(c *gin.Context) {
 		return
 	}
 
-	data := response.GetListResponse{
+	data := rs.GetListResponse{
 		Page:     queryParams.Page,
 		PageSize: queryParams.PageSize,
 		Total:    int64(len(result)),
@@ -99,7 +101,7 @@ func (uc *UserController) UpdateProfile(c *gin.Context) {
 		return
 	}
 	// Get username, password from request
-	var req *request.UpdateUserRequest
+	var req *rq.UpdateUserRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.Error(err)
 		return
@@ -127,7 +129,7 @@ func (uc *UserController) UpdatePassword(c *gin.Context) {
 	}
 
 	// Get username, password from request
-	var req *request.UpdateUserPasswordRequest
+	var req *rq.UpdateUserPasswordRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.Error(err)
 		return
@@ -169,7 +171,7 @@ func (uc *UserController) UpdateAvatar(c *gin.Context) {
 	}
 
 	// Tạo đường dẫn lưu trữ file
-	filename := fmt.Sprintf("%d_%s_%s", id, utils.RandomTenDigit(), "avatar.png")
+	filename := fmt.Sprintf("%d_%s_%s", id, urand.RandomTenDigit(), "avatar.png")
 	filePath := filepath.Join(global.Config.Path.PathAvatar, filename)
 
 	// Sử dụng một goroutine duy nhất để xử lý tất cả các tác vụ
@@ -177,7 +179,7 @@ func (uc *UserController) UpdateAvatar(c *gin.Context) {
 		// Remove old avatar
 		if user.UserAvatar != "" {
 			avatarPath := filepath.Join(global.Config.Path.PathAvatar, user.UserAvatar)
-			errRemove := utils.RemoveFile(avatarPath)
+			errRemove := ufile.RemoveFile(avatarPath)
 			if errRemove != nil {
 				global.SendLog("Error remove file", "error", errRemove)
 			}

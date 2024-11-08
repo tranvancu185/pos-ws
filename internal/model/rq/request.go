@@ -1,4 +1,4 @@
-package request
+package rq
 
 type GetListRequest struct {
 	PageSize int64 `json:"page_size"`

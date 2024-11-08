@@ -1,4 +1,4 @@
-package utils
+package uurl
 
 import (
 	"crypto/md5"

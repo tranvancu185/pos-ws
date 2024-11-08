@@ -3,8 +3,8 @@ package controller
 import (
 	"strconv"
 	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
+	"tranvancu185/vey-pos-ws/internal/model/rq"
 	"tranvancu185/vey-pos-ws/internal/service"
-	"tranvancu185/vey-pos-ws/pkg/request"
 	"tranvancu185/vey-pos-ws/pkg/response"
 
 	"github.com/gin-gonic/gin"
@@ -23,7 +23,7 @@ func NewTableController(
 }
 
 func (mc *TableController) GetListTable(c *gin.Context) {
-	var queryParams request.GetListTableRequest
+	var queryParams rq.GetListTableRequest
 
 	if err := c.ShouldBindQuery(&queryParams); err != nil {
 		c.Error(err)
@@ -44,7 +44,7 @@ func (mc *TableController) GetListTable(c *gin.Context) {
 }
 
 func (mc *TableController) CreateTable(c *gin.Context) {
-	var queryParams request.CreateTableRequest
+	var queryParams rq.CreateTableRequest
 
 	if err := c.ShouldBindJSON(&queryParams); err != nil {
 		c.Error(err)
@@ -65,14 +65,21 @@ func (mc *TableController) CreateTable(c *gin.Context) {
 }
 
 func (mc *TableController) UpdateTable(c *gin.Context) {
-	var queryParams request.UpdateTableRequest
+	id := c.Param("id")
+	idInt, err := strconv.ParseInt(id, 10, 64)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+
+	var queryParams rq.UpdateTableRequest
 
 	if err := c.ShouldBindJSON(&queryParams); err != nil {
 		c.Error(err)
 		return
 	}
 
-	errRS := mc.tableService.UpdateTable(&queryParams)
+	errRS := mc.tableService.UpdateTable(idInt, &queryParams)
 	if errRS != nil {
 		c.Error(errRS)
 		return

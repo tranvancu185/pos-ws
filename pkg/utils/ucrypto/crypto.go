@@ -1,4 +1,4 @@
-package utils
+package ucrypto
 
 import (
 	"crypto/sha256"

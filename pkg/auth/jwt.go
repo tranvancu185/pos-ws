@@ -3,7 +3,7 @@ package auth
 import (
 	"time"
 	"tranvancu185/vey-pos-ws/global"
-	"tranvancu185/vey-pos-ws/pkg/utils"
+	"tranvancu185/vey-pos-ws/pkg/utils/utime"
 
 	"github.com/golang-jwt/jwt/v4"
 )
@@ -17,7 +17,7 @@ type JWTDataset struct {
 
 func GenerateJWT(userId int64, roleId int64, userStatus int64) (string, error) {
 	// Set expiration time
-	expirationTime := utils.GetCurrentTime().Add(24 * time.Hour) // ===> 24h
+	expirationTime := utime.GetCurrentTime().Add(24 * time.Hour) // ===> 24h
 
 	// Create Claims JWT
 	claims := JWTDataset{

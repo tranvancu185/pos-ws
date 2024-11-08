@@ -2,8 +2,9 @@ package controller
 
 import (
 	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
+	"tranvancu185/vey-pos-ws/internal/model/rq"
+	"tranvancu185/vey-pos-ws/internal/model/rs"
 	"tranvancu185/vey-pos-ws/internal/service"
-	"tranvancu185/vey-pos-ws/pkg/request"
 	"tranvancu185/vey-pos-ws/pkg/response"
 
 	"github.com/gin-gonic/gin"
@@ -24,7 +25,7 @@ func NewAuthController(
 
 func (ac *AuthController) Login(c *gin.Context) {
 	// Get username, password from request
-	var req request.LoginRequest
+	var req rq.LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.Error(err)
 		return
@@ -42,7 +43,7 @@ func (ac *AuthController) Login(c *gin.Context) {
 		return
 	}
 	// Return token
-	data := response.LoginResponse{
+	data := rs.LoginResponse{
 		UserID: result.UserID,
 		Token:  result.Token,
 	}
@@ -55,7 +56,7 @@ func (ac *AuthController) Login(c *gin.Context) {
 
 func (ac *AuthController) Register(c *gin.Context) {
 	// Get username, password from request
-	var req request.RegisterRequest
+	var req rq.RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.Error(err)
 		return
@@ -73,7 +74,7 @@ func (ac *AuthController) Register(c *gin.Context) {
 		return
 	}
 
-	result := response.RegisterResponse{
+	result := rs.RegisterResponse{
 		UserID: userId,
 	}
 

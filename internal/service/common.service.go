@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"time"
 	"tranvancu185/vey-pos-ws/internal/repo"
+	"tranvancu185/vey-pos-ws/pkg/utils/utime"
 )
 
 const (
@@ -16,18 +16,28 @@ const (
 	COUNTER_PAYMENT      = "payment"
 )
 
-var (
-	counterRepo = repo.NewCounterRepo()
-)
+type ICommonService interface {
+	GenerateCode(counterName string) (string, error)
+	IncreaseCounter(counterName string) (int64, error)
+}
 
-func GenerateCode(counterName string) (string, error) {
+type commonService struct {
+	cr repo.ICounterRepo
+}
+
+func NewCommonService() ICommonService {
+	return &commonService{
+		cr: repo.NewCounterRepo(),
+	}
+}
+
+func (cs *commonService) GenerateCode(counterName string) (string, error) {
 	var code string
-	currentTime := time.Now()
-
+	formatTime := ""
 	prefix := "00"
-	counterString := currentTime.Format("20060102")
-	fmt.Println("counterString", counterString)
-	counter, err := IncreaseCounter(counterName)
+	counterString := ""
+
+	counter, err := cs.IncreaseCounter(counterName)
 	if err != nil {
 		return "", err
 	}
@@ -38,28 +48,32 @@ func GenerateCode(counterName string) (string, error) {
 		counterString = fmt.Sprintf("%04d", counter)
 	case COUNTER_ORDER:
 		prefix = "21"
-		counterString = currentTime.Format("060102") + fmt.Sprintf("%06d", counter)
+		formatTime = "060102"
+		counterString = fmt.Sprintf("%06d", counter)
 	case COUNTER_ORDER_DETAIL:
 		prefix = "23"
-		counterString = currentTime.Format("060102") + fmt.Sprintf("%06d", counter)
+		formatTime = "060102"
+		counterString = fmt.Sprintf("%06d", counter)
 	case COUNTER_PRODUCT:
 		prefix = "40"
 		counterString = fmt.Sprintf("%04d", counter)
 	case COUNTER_PAYMENT:
 		prefix = "24"
-		counterString = currentTime.Format("060102") + fmt.Sprintf("%06d", counter)
+		formatTime = "060102"
+		counterString = fmt.Sprintf("%06d", counter)
 	default:
 	}
 
-	code = prefix + counterString
+	code = prefix + utime.GetCurrentTimeString(formatTime) + counterString
+
 	return code, nil
 }
 
-func IncreaseCounter(counterName string) (int64, error) {
+func (cs *commonService) IncreaseCounter(counterName string) (int64, error) {
 	var counterNumber int64
 	newCounter := false
 
-	counter, err := counterRepo.GetCounter(counterName)
+	counter, err := cs.cr.GetCounter(counterName)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			counterNumber = 1
@@ -67,17 +81,34 @@ func IncreaseCounter(counterName string) (int64, error) {
 		} else {
 			return 0, err
 		}
+	} else {
+		switch counterName {
+		case COUNTER_ORDER:
+			fallthrough
+		case COUNTER_ORDER_DETAIL:
+			fallthrough
+		case COUNTER_PAYMENT:
+			if t := utime.StartOfCurrentDay(); t.Unix() > counter.UpdatedAt.Int64 {
+				counterNumber = 1
+			} else {
+				counterNumber = counter.CounterNumber + 1
+			}
+		case COUNTER_TABLE:
+			fallthrough
+		case COUNTER_PRODUCT:
+			fallthrough
+		default:
+			counterNumber = counter.CounterNumber + 1
+		}
 	}
 
-	counterNumber = counter.CounterNumber + 1
-
 	if newCounter {
-		errc := counterRepo.CreateCounter(counterName)
+		errc := cs.cr.CreateCounter(counterName)
 		if errc != nil {
 			return 0, errc
 		}
 	} else {
-		err = counterRepo.UpdateCounter(counterName, counterNumber)
+		err = cs.cr.UpdateCounter(counterName, counterNumber)
 		if err != nil {
 			return 0, err
 		}

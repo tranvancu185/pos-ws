@@ -1,4 +1,4 @@
-package request
+package rq
 
 type LoginRequest struct {
 	Username string `json:"username" validate:"required,min=3,max=30"`
