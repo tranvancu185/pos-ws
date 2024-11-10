@@ -2,9 +2,9 @@ package repo
 
 import (
 	"tranvancu185/vey-pos-ws/global"
-	"tranvancu185/vey-pos-ws/internal/constants"
 	"tranvancu185/vey-pos-ws/internal/database"
 	"tranvancu185/vey-pos-ws/internal/model/rq"
+	"tranvancu185/vey-pos-ws/internal/uconst"
 	"tranvancu185/vey-pos-ws/pkg/utils/utime"
 )
 
@@ -13,7 +13,7 @@ type ITableRepo interface {
 	GetTotalTable(params *rq.GetListTableRequest) (int64, error)
 	GetTableByID(id int64) (*database.GetTableByIDRow, error)
 	CreateTable(params *rq.CreateTableRequest) (int64, error)
-	UpdateTableByID(params *rq.UpdateTableRequest) error
+	UpdateTableByID(id int64, params *rq.UpdateTableRequest) error
 	DeleteTableByID(id int64) error
 }
 
@@ -34,13 +34,13 @@ func (ur *tableRepo) GetListTable(params *rq.GetListTableRequest) ([]database.Ge
 	if params.PageSize != 0 {
 		input.Limit = params.PageSize
 	} else {
-		input.Limit = constants.DEFAULT_LIMIT
+		input.Limit = uconst.DEFAULT_LIMIT
 	}
 
 	if params.Page != 0 {
 		input.Offset = (params.Page - 1) * params.PageSize
 	} else {
-		input.Offset = constants.DEFAULT_OFFSET
+		input.Offset = uconst.DEFAULT_OFFSET
 	}
 
 	if params.Text != "" {
@@ -101,9 +101,11 @@ func (ur *tableRepo) CreateTable(params *rq.CreateTableRequest) (int64, error) {
 	return id, nil
 }
 
-func (ur *tableRepo) UpdateTableByID(params *rq.UpdateTableRequest) error {
+func (ur *tableRepo) UpdateTableByID(id int64, params *rq.UpdateTableRequest) error {
 	var input database.UpdateTableByIDParams
 	currentTime := utime.GetCurrentTimeUnix()
+
+	input.TableID = id
 
 	if params.TableName != "" {
 		input.TableName = params.TableName

@@ -1,4 +1,4 @@
-package constants
+package uconst
 
 const (
 	BOOL_TRUE  = true

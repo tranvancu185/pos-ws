@@ -5,13 +5,18 @@ WHERE category_name LIKE ? OR category_status = ? OR (created_at >= ? AND create
 ORDER BY ?
 LIMIT ? OFFSET ?;
 
+-- name: GetTotalCategories :one
+SELECT COUNT(category_id)
+FROM categories
+WHERE category_name LIKE ? OR category_status = ? OR (created_at >= ? AND created_at <= ?) OR (deleted_at >= ? AND deleted_at <= ?);
+
 -- name: GetCategoryByID :one
 SELECT category_id, category_name, category_description, category_status, category_properties
 FROM categories
 WHERE category_id = ?;
 
--- name: CreateCategory :exec
-INSERT INTO categories (category_name, category_description, category_status, category_properties) VALUES (?, ?, ?, ?);
+-- name: CreateCategory :one
+INSERT INTO categories (category_name, category_description, category_status, category_properties, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?) RETURNING category_id;
 
 -- name: UpdateCategoryStatusByID :exec
 UPDATE categories

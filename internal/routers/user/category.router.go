@@ -10,10 +10,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type TableRouter struct{}
+type CategoryRouter struct{}
 
-func (tr *TableRouter) InitTableRouter(c *gin.Context, Router *gin.RouterGroup) {
-	tableController, error := wire.InitTableRouterHandler()
+func (tr *CategoryRouter) InitTableRouter(c *gin.Context, Router *gin.RouterGroup) {
+	categoryController, error := wire.InitTableRouterHandler()
 	if error != nil {
 		response.ErrorResponse(c, response.ParamsResponse{
 			Status:      response.SatusInternalError,
@@ -23,17 +23,17 @@ func (tr *TableRouter) InitTableRouter(c *gin.Context, Router *gin.RouterGroup) 
 	// Public route
 	TablePublicRoute := Router.Group("/table")
 	{
-		TablePublicRoute.GET("/", tableController.GetListTable)
+		TablePublicRoute.GET("/", categoryController.GetListTable)
 	}
 	// Private route
 	TablePrivateRoute := Router.Group("/table")
 	{
 		TablePrivateRoute.Use(middlewares.AuthMiddleware(uconst.FLAG_BYPASS_ROLE))
 
-		TablePrivateRoute.POST("/create", tableController.CreateTable)
-		TablePrivateRoute.GET("/detail/:id", tableController.GetTableByID)
-		TablePrivateRoute.PUT("/update/:id", tableController.UpdateTable)
-		TablePrivateRoute.DELETE("/delete/:id", tableController.DeleteTableByID)
+		TablePrivateRoute.POST("/create", categoryController.CreateTable)
+		TablePrivateRoute.GET("/detail/:id", categoryController.GetTableByID)
+		TablePrivateRoute.PUT("/update/:id", categoryController.UpdateTable)
+		TablePrivateRoute.DELETE("/delete/:id", categoryController.DeleteTableByID)
 	}
 
 }

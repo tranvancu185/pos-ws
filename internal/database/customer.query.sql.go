@@ -10,8 +10,8 @@ import (
 	"database/sql"
 )
 
-const createCustomer = `-- name: CreateCustomer :exec
-INSERT INTO customers (customer_name, customer_email, customer_phone, customer_status, customer_properties) VALUES (?, ?, ?, ?, ?)
+const createCustomer = `-- name: CreateCustomer :one
+INSERT INTO customers (customer_name, customer_email, customer_phone, customer_status, customer_properties) VALUES (?, ?, ?, ?, ?) RETURNING customer_id
 `
 
 type CreateCustomerParams struct {
@@ -22,15 +22,17 @@ type CreateCustomerParams struct {
 	CustomerProperties sql.NullString `json:"customer_properties"`
 }
 
-func (q *Queries) CreateCustomer(ctx context.Context, arg CreateCustomerParams) error {
-	_, err := q.db.ExecContext(ctx, createCustomer,
+func (q *Queries) CreateCustomer(ctx context.Context, arg CreateCustomerParams) (int64, error) {
+	row := q.db.QueryRowContext(ctx, createCustomer,
 		arg.CustomerName,
 		arg.CustomerEmail,
 		arg.CustomerPhone,
 		arg.CustomerStatus,
 		arg.CustomerProperties,
 	)
-	return err
+	var customer_id int64
+	err := row.Scan(&customer_id)
+	return customer_id, err
 }
 
 const deleteCustomerByID = `-- name: DeleteCustomerByID :exec
@@ -132,7 +134,7 @@ func (q *Queries) GetCustomerByPhone(ctx context.Context, customerPhone string) 
 const getListCustomers = `-- name: GetListCustomers :many
 SELECT customer_id, customer_name, customer_email, customer_phone, customer_status, customer_total_orders
 FROM customers
-WHERE customer_name LIKE ? OR customer_phone = ? OR customer_status = ? OR (created_at >= ? AND created_at <= ?) OR (deleted_at >= ? AND deleted_at <= ?)
+WHERE customer_name LIKE ? OR customer_phone = ? OR customer_code = ? OR customer_status = ? OR (created_at >= ? AND created_at <= ?) OR (deleted_at >= ? AND deleted_at <= ?)
 ORDER BY ?
 LIMIT ? OFFSET ?
 `
@@ -140,6 +142,7 @@ LIMIT ? OFFSET ?
 type GetListCustomersParams struct {
 	CustomerName   string        `json:"customer_name"`
 	CustomerPhone  string        `json:"customer_phone"`
+	CustomerCode   string        `json:"customer_code"`
 	CustomerStatus int64         `json:"customer_status"`
 	CreatedAt      sql.NullInt64 `json:"created_at"`
 	CreatedAt_2    sql.NullInt64 `json:"created_at_2"`
@@ -162,6 +165,7 @@ func (q *Queries) GetListCustomers(ctx context.Context, arg GetListCustomersPara
 	rows, err := q.db.QueryContext(ctx, getListCustomers,
 		arg.CustomerName,
 		arg.CustomerPhone,
+		arg.CustomerCode,
 		arg.CustomerStatus,
 		arg.CreatedAt,
 		arg.CreatedAt_2,
@@ -196,6 +200,39 @@ func (q *Queries) GetListCustomers(ctx context.Context, arg GetListCustomersPara
 		return nil, err
 	}
 	return items, nil
+}
+
+const getTotalCustomers = `-- name: GetTotalCustomers :one
+SELECT COUNT(customer_id)
+FROM customers
+WHERE customer_name LIKE ? OR customer_phone = ? OR customer_code = ? OR customer_status = ? OR (created_at >= ? AND created_at <= ?) OR (deleted_at >= ? AND deleted_at <= ?)
+`
+
+type GetTotalCustomersParams struct {
+	CustomerName   string        `json:"customer_name"`
+	CustomerPhone  string        `json:"customer_phone"`
+	CustomerCode   string        `json:"customer_code"`
+	CustomerStatus int64         `json:"customer_status"`
+	CreatedAt      sql.NullInt64 `json:"created_at"`
+	CreatedAt_2    sql.NullInt64 `json:"created_at_2"`
+	DeletedAt      sql.NullInt64 `json:"deleted_at"`
+	DeletedAt_2    sql.NullInt64 `json:"deleted_at_2"`
+}
+
+func (q *Queries) GetTotalCustomers(ctx context.Context, arg GetTotalCustomersParams) (int64, error) {
+	row := q.db.QueryRowContext(ctx, getTotalCustomers,
+		arg.CustomerName,
+		arg.CustomerPhone,
+		arg.CustomerCode,
+		arg.CustomerStatus,
+		arg.CreatedAt,
+		arg.CreatedAt_2,
+		arg.DeletedAt,
+		arg.DeletedAt_2,
+	)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
 }
 
 const restoreCustomerByID = `-- name: RestoreCustomerByID :exec

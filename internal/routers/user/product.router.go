@@ -1,8 +1,8 @@
 package user
 
 import (
-	"tranvancu185/vey-pos-ws/internal/constants"
 	"tranvancu185/vey-pos-ws/internal/middlewares"
+	"tranvancu185/vey-pos-ws/internal/uconst"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,7 +20,7 @@ func (pr *ProductRouter) InitProductRouter(c *gin.Context, Router *gin.RouterGro
 	}
 
 	// Private router
-	productPrivateRouter := Router.Group("/product", middlewares.AuthMiddleware(constants.USER_ROLEID_MANAGER))
+	productPrivateRouter := Router.Group("/product", middlewares.AuthMiddleware(uconst.USER_ROLEID_MANAGER))
 	{
 		productPrivateRouter.POST("/")
 		// productPrivateRouter.POST("/", productController.CreateProduct)

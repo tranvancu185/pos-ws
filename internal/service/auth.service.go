@@ -2,11 +2,11 @@ package service
 
 import (
 	"errors"
-	"tranvancu185/vey-pos-ws/internal/constants"
-	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
 	"tranvancu185/vey-pos-ws/internal/model/rq"
 	"tranvancu185/vey-pos-ws/internal/model/rs"
 	"tranvancu185/vey-pos-ws/internal/repo"
+	"tranvancu185/vey-pos-ws/internal/uconst"
+	"tranvancu185/vey-pos-ws/internal/uconst/messagecode"
 	"tranvancu185/vey-pos-ws/pkg/auth"
 	"tranvancu185/vey-pos-ws/pkg/utils/ucrypto"
 )
@@ -59,7 +59,7 @@ func (as *authService) Login(userName, password string) (*rs.LoginResponse, erro
 func (as *authService) Register(userData *rq.RegisterRequest) (int64, error) {
 	// Check user exist
 	isExist := as.authRepo.CheckUserExist(userData.UserName, userData.UserPhone)
-	if isExist == constants.BOOL_TRUE {
+	if isExist == uconst.BOOL_TRUE {
 		return 0, errors.New(messagecode.CODE_USER_EXIST)
 	}
 

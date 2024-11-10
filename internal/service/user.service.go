@@ -2,11 +2,11 @@ package service
 
 import (
 	"errors"
-	"tranvancu185/vey-pos-ws/internal/constants"
-	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
 	"tranvancu185/vey-pos-ws/internal/database"
 	"tranvancu185/vey-pos-ws/internal/model/rq"
 	"tranvancu185/vey-pos-ws/internal/repo"
+	"tranvancu185/vey-pos-ws/internal/uconst"
+	"tranvancu185/vey-pos-ws/internal/uconst/messagecode"
 	"tranvancu185/vey-pos-ws/pkg/utils/ucrypto"
 )
 
@@ -47,7 +47,7 @@ func (us *userService) UpdateUserByID(id int64, params *rq.UpdateUserRequest) er
 
 func (us *userService) UpdateUserPasswordByID(id int64, params *rq.UpdateUserPasswordRequest) error {
 	if params.IsReset {
-		return (us.userRepo).UpdateUserPassword(id, constants.USER_DEFAULT_PASSWORD)
+		return (us.userRepo).UpdateUserPassword(id, uconst.USER_DEFAULT_PASSWORD)
 	} else {
 		// Check old password
 		user, err := (us.authRepo).GetUserInfo(rq.GetProfileRequest{

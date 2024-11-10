@@ -1,4 +1,4 @@
-package constants
+package uconst
 
 const (
 	FLAG_BYPASS_ROLE      = 0

@@ -49,7 +49,7 @@ func (ts *tableService) CreateTable(params *rq.CreateTableRequest) (int64, error
 }
 
 func (ts *tableService) UpdateTable(id int64, params *rq.UpdateTableRequest) error {
-	err := ts.tableRepo.UpdateTableByID(params)
+	err := ts.tableRepo.UpdateTableByID(id, params)
 	if err != nil {
 		return err
 	}

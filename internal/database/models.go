@@ -43,6 +43,7 @@ type Customer struct {
 	CustomerID          int64          `json:"customer_id"`
 	CustomerName        string         `json:"customer_name"`
 	CustomerEmail       sql.NullString `json:"customer_email"`
+	CustomerCode        string         `json:"customer_code"`
 	CustomerPhone       string         `json:"customer_phone"`
 	CustomerStatus      int64          `json:"customer_status"`
 	CustomerTotalOrders int64          `json:"customer_total_orders"`

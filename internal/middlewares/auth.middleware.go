@@ -3,8 +3,8 @@ package middlewares
 import (
 	"errors"
 	"tranvancu185/vey-pos-ws/global"
-	"tranvancu185/vey-pos-ws/internal/constants"
-	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
+	"tranvancu185/vey-pos-ws/internal/uconst"
+	"tranvancu185/vey-pos-ws/internal/uconst/messagecode"
 	"tranvancu185/vey-pos-ws/pkg/auth"
 
 	"github.com/gin-gonic/gin"
@@ -46,7 +46,7 @@ func AuthMiddleware(role_id int64) gin.HandlerFunc {
 			return
 		}
 
-		if role_id > 0 && claims.RoleID != constants.USER_ROLEID_ADMIN {
+		if role_id > 0 && claims.RoleID != uconst.USER_ROLEID_ADMIN {
 			if claims.RoleID != role_id {
 				c.Error(errors.New(messagecode.CODE_FORBIDDEN))
 				c.Abort()

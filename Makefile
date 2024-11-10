@@ -8,6 +8,9 @@ run:
 
 build:
 	@go build ./cmd/$(APP_NAME)/$(APP_NAME).go
+
+sqlc:
+	sqlc generate
 	
 upser:
 	@GOOSE_DRIVER=sqlite3 GOOSE_DBSTRING=$(GOOSE_DBSTRING) goose -dir $(GOOSE_MIGRATIONS_DIR) up
@@ -18,4 +21,4 @@ downser:
 resetser:
 	@GOOSE_DRIVER=sqlite3 GOOSE_DBSTRING=$(GOOSE_DBSTRING) goose -dir $(GOOSE_MIGRATIONS_DIR) reset
 
-.PHONY: upser downser resetser run build
+.PHONY: upser downser resetser run build sqlc

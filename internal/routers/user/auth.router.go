@@ -1,9 +1,9 @@
 package user
 
 import (
-	"tranvancu185/vey-pos-ws/internal/constants"
-	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
 	"tranvancu185/vey-pos-ws/internal/middlewares"
+	"tranvancu185/vey-pos-ws/internal/uconst"
+	"tranvancu185/vey-pos-ws/internal/uconst/messagecode"
 	"tranvancu185/vey-pos-ws/internal/wire"
 	"tranvancu185/vey-pos-ws/pkg/response"
 
@@ -29,6 +29,6 @@ func (ur *AuthRouter) InitAuthRouter(c *gin.Context, Router *gin.RouterGroup) {
 
 	AuthPrivateRoute := Router.Group("/auth")
 	{
-		AuthPrivateRoute.POST("/register", middlewares.AuthMiddleware(constants.USER_ROLEID_ADMIN), authController.Register)
+		AuthPrivateRoute.POST("/register", middlewares.AuthMiddleware(uconst.USER_ROLEID_ADMIN), authController.Register)
 	}
 }

@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"errors"
 	"tranvancu185/vey-pos-ws/global"
-	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
 	"tranvancu185/vey-pos-ws/internal/database"
+	"tranvancu185/vey-pos-ws/internal/uconst/messagecode"
 	"tranvancu185/vey-pos-ws/pkg/utils/utime"
 )
 

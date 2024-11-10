@@ -169,7 +169,7 @@ func (q *Queries) GetTableByID(ctx context.Context, tableID int64) (GetTableByID
 const getTotalTables = `-- name: GetTotalTables :one
 SELECT COUNT(table_id)
 FROM tables
-WHERE table_name LIKE ? OR table_code like ? AND table_status = ? AND (created_at >= ? AND created_at <= ?) AND (deleted_at >= ? AND deleted_at <= ?)
+WHERE (table_name LIKE ? OR table_code like ?) AND table_status = ? AND (created_at >= ? AND created_at <= ?) AND (deleted_at >= ? AND deleted_at <= ?)
 `
 
 type GetTotalTablesParams struct {

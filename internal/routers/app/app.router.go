@@ -1,7 +1,7 @@
 package app
 
 import (
-	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
+	"tranvancu185/vey-pos-ws/internal/uconst/messagecode"
 	"tranvancu185/vey-pos-ws/internal/wire"
 	"tranvancu185/vey-pos-ws/pkg/response"
 

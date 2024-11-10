@@ -5,15 +5,16 @@ import (
 	"path/filepath"
 	"strconv"
 	"tranvancu185/vey-pos-ws/global"
-	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
 	"tranvancu185/vey-pos-ws/internal/model/rq"
 	"tranvancu185/vey-pos-ws/internal/model/rs"
 	"tranvancu185/vey-pos-ws/internal/service"
+	"tranvancu185/vey-pos-ws/internal/uconst/messagecode"
 	"tranvancu185/vey-pos-ws/pkg/response"
 	"tranvancu185/vey-pos-ws/pkg/utils/ufile"
 	urand "tranvancu185/vey-pos-ws/pkg/utils/urandom"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 type UserController struct {
@@ -107,6 +108,13 @@ func (uc *UserController) UpdateProfile(c *gin.Context) {
 		return
 	}
 
+	// Validate username, password
+	validate := validator.New()
+	if err := validate.Struct(req); err != nil {
+		c.Error(err)
+		return
+	}
+
 	// Call userService.UpdateProfile
 	err := uc.userService.UpdateUserByID(id, req)
 	if err != nil {
@@ -131,6 +139,13 @@ func (uc *UserController) UpdatePassword(c *gin.Context) {
 	// Get username, password from request
 	var req *rq.UpdateUserPasswordRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
+		c.Error(err)
+		return
+	}
+
+	// Validate username, password
+	validate := validator.New()
+	if err := validate.Struct(req); err != nil {
 		c.Error(err)
 		return
 	}

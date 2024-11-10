@@ -2,13 +2,14 @@ package controller
 
 import (
 	"strconv"
-	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
 	"tranvancu185/vey-pos-ws/internal/model/rq"
 	"tranvancu185/vey-pos-ws/internal/model/rs"
 	"tranvancu185/vey-pos-ws/internal/service"
+	"tranvancu185/vey-pos-ws/internal/uconst/messagecode"
 	"tranvancu185/vey-pos-ws/pkg/response"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 type TableController struct {
@@ -66,6 +67,13 @@ func (mc *TableController) CreateTable(c *gin.Context) {
 		return
 	}
 
+	// Validate username, password
+	validate := validator.New()
+	if err := validate.Struct(queryParams); err != nil {
+		c.Error(err)
+		return
+	}
+
 	result, er := mc.tableService.CreateTable(&queryParams)
 	if er != nil {
 		c.Error(er)
@@ -90,6 +98,13 @@ func (mc *TableController) UpdateTable(c *gin.Context) {
 	var queryParams rq.UpdateTableRequest
 
 	if err := c.ShouldBindJSON(&queryParams); err != nil {
+		c.Error(err)
+		return
+	}
+
+	// Validate username, password
+	validate := validator.New()
+	if err := validate.Struct(queryParams); err != nil {
 		c.Error(err)
 		return
 	}

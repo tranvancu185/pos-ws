@@ -3,10 +3,10 @@ package controller
 import (
 	"path/filepath"
 	"tranvancu185/vey-pos-ws/global"
-	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
 	"tranvancu185/vey-pos-ws/internal/model/rq"
 	"tranvancu185/vey-pos-ws/internal/model/rs"
 	"tranvancu185/vey-pos-ws/internal/service"
+	"tranvancu185/vey-pos-ws/internal/uconst/messagecode"
 	"tranvancu185/vey-pos-ws/pkg/electron"
 	"tranvancu185/vey-pos-ws/pkg/response"
 

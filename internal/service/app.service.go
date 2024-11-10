@@ -2,10 +2,10 @@ package service
 
 import (
 	"database/sql"
-	"tranvancu185/vey-pos-ws/internal/constants"
 	"tranvancu185/vey-pos-ws/internal/database"
 	"tranvancu185/vey-pos-ws/internal/model/rq"
 	"tranvancu185/vey-pos-ws/internal/repo"
+	"tranvancu185/vey-pos-ws/internal/uconst"
 )
 
 type IAppService interface {
@@ -48,7 +48,7 @@ func (as *appService) SetAppInfo(params rq.SetAppRequest) (int64, error) {
 	var isNewApp bool
 	// Get App Pending
 	appPending, err := as.GetListApp(rq.GetListAppRequest{
-		AppStatus:  constants.APP_STATUS_PENDING,
+		AppStatus:  uconst.APP_STATUS_PENDING,
 		AppVersion: params.AppVersion,
 	})
 	if err != nil {

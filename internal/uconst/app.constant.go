@@ -1,4 +1,4 @@
-package constants
+package uconst
 
 const (
 	APP_STATUS_ACTIVE  = COMMON_STATUS_ACTIVE

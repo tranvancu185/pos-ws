@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS customers (
   "customer_id" INTEGER PRIMARY KEY AUTOINCREMENT,
   "customer_name" VARCHAR(255) NOT NULL,
   "customer_email" VARCHAR(255) DEFAULT NULL,
+  "customer_code" VARCHAR(30) NOT NULL UNIQUE,
   "customer_phone" VARCHAR(30) NOT NULL UNIQUE,
   "customer_status" INTEGER NOT NULL DEFAULT 1,
   "customer_total_orders" INTEGER NOT NULL DEFAULT 0,

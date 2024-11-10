@@ -11,12 +11,18 @@ WHERE customer_phone = ?;
 -- name: GetListCustomers :many
 SELECT customer_id, customer_name, customer_email, customer_phone, customer_status, customer_total_orders
 FROM customers
-WHERE customer_name LIKE ? OR customer_phone = ? OR customer_status = ? OR (created_at >= ? AND created_at <= ?) OR (deleted_at >= ? AND deleted_at <= ?)
+WHERE customer_name LIKE ? OR customer_phone = ? OR customer_code = ? OR customer_status = ? OR (created_at >= ? AND created_at <= ?) OR (deleted_at >= ? AND deleted_at <= ?)
 ORDER BY ?
 LIMIT ? OFFSET ?;
 
--- name: CreateCustomer :exec
-INSERT INTO customers (customer_name, customer_email, customer_phone, customer_status, customer_properties) VALUES (?, ?, ?, ?, ?);
+-- name: GetTotalCustomers :one
+SELECT COUNT(customer_id)
+FROM customers
+WHERE customer_name LIKE ? OR customer_phone = ? OR customer_code = ? OR customer_status = ? OR (created_at >= ? AND created_at <= ?) OR (deleted_at >= ? AND deleted_at <= ?);
+
+
+-- name: CreateCustomer :one
+INSERT INTO customers (customer_name, customer_email, customer_phone, customer_status, customer_properties) VALUES (?, ?, ?, ?, ?) RETURNING customer_id;
 
 -- name: UpdateCustomerStatusByID :exec
 UPDATE customers

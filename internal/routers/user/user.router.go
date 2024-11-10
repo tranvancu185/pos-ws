@@ -1,9 +1,9 @@
 package user
 
 import (
-	"tranvancu185/vey-pos-ws/internal/constants"
-	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
 	"tranvancu185/vey-pos-ws/internal/middlewares"
+	"tranvancu185/vey-pos-ws/internal/uconst"
+	"tranvancu185/vey-pos-ws/internal/uconst/messagecode"
 	"tranvancu185/vey-pos-ws/internal/wire"
 	"tranvancu185/vey-pos-ws/pkg/response"
 
@@ -29,7 +29,7 @@ func (ur *UserRouter) InitUserRouter(c *gin.Context, Router *gin.RouterGroup) {
 	// Private route
 	UserPrivateRoute := Router.Group("/user")
 	{
-		UserPrivateRoute.Use(middlewares.AuthMiddleware(constants.FLAG_BYPASS_ROLE))
+		UserPrivateRoute.Use(middlewares.AuthMiddleware(uconst.FLAG_BYPASS_ROLE))
 
 		// UserPrivateRoute.POST("/", userController.)
 		UserPrivateRoute.GET("/profile", userController.GetProfile)

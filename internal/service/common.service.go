@@ -14,6 +14,7 @@ const (
 	COUNTER_ORDER_DETAIL = "order_detail"
 	COUNTER_PRODUCT      = "product"
 	COUNTER_PAYMENT      = "payment"
+	COUNTER_CUSTOMER     = "customer"
 )
 
 type ICommonService interface {
@@ -61,6 +62,9 @@ func (cs *commonService) GenerateCode(counterName string) (string, error) {
 		prefix = "24"
 		formatTime = "060102"
 		counterString = fmt.Sprintf("%06d", counter)
+	case COUNTER_CUSTOMER:
+		prefix = "CUS"
+		counterString = fmt.Sprintf("%04d", counter)
 	default:
 	}
 
@@ -96,6 +100,8 @@ func (cs *commonService) IncreaseCounter(counterName string) (int64, error) {
 		case COUNTER_TABLE:
 			fallthrough
 		case COUNTER_PRODUCT:
+			fallthrough
+		case COUNTER_CUSTOMER:
 			fallthrough
 		default:
 			counterNumber = counter.CounterNumber + 1

@@ -10,8 +10,8 @@ import (
 	"database/sql"
 )
 
-const createCategory = `-- name: CreateCategory :exec
-INSERT INTO categories (category_name, category_description, category_status, category_properties) VALUES (?, ?, ?, ?)
+const createCategory = `-- name: CreateCategory :one
+INSERT INTO categories (category_name, category_description, category_status, category_properties, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?) RETURNING category_id
 `
 
 type CreateCategoryParams struct {
@@ -19,16 +19,22 @@ type CreateCategoryParams struct {
 	CategoryDescription sql.NullString `json:"category_description"`
 	CategoryStatus      int64          `json:"category_status"`
 	CategoryProperties  sql.NullString `json:"category_properties"`
+	CreatedAt           sql.NullInt64  `json:"created_at"`
+	UpdatedAt           sql.NullInt64  `json:"updated_at"`
 }
 
-func (q *Queries) CreateCategory(ctx context.Context, arg CreateCategoryParams) error {
-	_, err := q.db.ExecContext(ctx, createCategory,
+func (q *Queries) CreateCategory(ctx context.Context, arg CreateCategoryParams) (int64, error) {
+	row := q.db.QueryRowContext(ctx, createCategory,
 		arg.CategoryName,
 		arg.CategoryDescription,
 		arg.CategoryStatus,
 		arg.CategoryProperties,
+		arg.CreatedAt,
+		arg.UpdatedAt,
 	)
-	return err
+	var category_id int64
+	err := row.Scan(&category_id)
+	return category_id, err
 }
 
 const deleteCategoryByID = `-- name: DeleteCategoryByID :exec
@@ -155,6 +161,35 @@ func (q *Queries) GetListCategories(ctx context.Context, arg GetListCategoriesPa
 		return nil, err
 	}
 	return items, nil
+}
+
+const getTotalCategories = `-- name: GetTotalCategories :one
+SELECT COUNT(category_id)
+FROM categories
+WHERE category_name LIKE ? OR category_status = ? OR (created_at >= ? AND created_at <= ?) OR (deleted_at >= ? AND deleted_at <= ?)
+`
+
+type GetTotalCategoriesParams struct {
+	CategoryName   string        `json:"category_name"`
+	CategoryStatus int64         `json:"category_status"`
+	CreatedAt      sql.NullInt64 `json:"created_at"`
+	CreatedAt_2    sql.NullInt64 `json:"created_at_2"`
+	DeletedAt      sql.NullInt64 `json:"deleted_at"`
+	DeletedAt_2    sql.NullInt64 `json:"deleted_at_2"`
+}
+
+func (q *Queries) GetTotalCategories(ctx context.Context, arg GetTotalCategoriesParams) (int64, error) {
+	row := q.db.QueryRowContext(ctx, getTotalCategories,
+		arg.CategoryName,
+		arg.CategoryStatus,
+		arg.CreatedAt,
+		arg.CreatedAt_2,
+		arg.DeletedAt,
+		arg.DeletedAt_2,
+	)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
 }
 
 const restoreCategoryByID = `-- name: RestoreCategoryByID :exec
