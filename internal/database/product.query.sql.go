@@ -11,27 +11,35 @@ import (
 )
 
 const createProduct = `-- name: CreateProduct :one
-INSERT INTO products (product_name, product_code, product_description, product_price, product_status, product_properties) VALUES (?, ?, ?, ?, ?, ?)
+INSERT INTO products (product_name, product_code, product_display_name, product_description, product_price, product_status, product_properties, product_category_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 RETURNING product_id
 `
 
 type CreateProductParams struct {
 	ProductName        string         `json:"product_name"`
 	ProductCode        string         `json:"product_code"`
+	ProductDisplayName string         `json:"product_display_name"`
 	ProductDescription sql.NullString `json:"product_description"`
 	ProductPrice       int64          `json:"product_price"`
 	ProductStatus      int64          `json:"product_status"`
 	ProductProperties  sql.NullString `json:"product_properties"`
+	ProductCategoryID  int64          `json:"product_category_id"`
+	CreatedAt          sql.NullInt64  `json:"created_at"`
+	UpdatedAt          sql.NullInt64  `json:"updated_at"`
 }
 
 func (q *Queries) CreateProduct(ctx context.Context, arg CreateProductParams) (int64, error) {
 	row := q.db.QueryRowContext(ctx, createProduct,
 		arg.ProductName,
 		arg.ProductCode,
+		arg.ProductDisplayName,
 		arg.ProductDescription,
 		arg.ProductPrice,
 		arg.ProductStatus,
 		arg.ProductProperties,
+		arg.ProductCategoryID,
+		arg.CreatedAt,
+		arg.UpdatedAt,
 	)
 	var product_id int64
 	err := row.Scan(&product_id)
@@ -73,28 +81,33 @@ func (q *Queries) ForceDeleteProductByID(ctx context.Context, arg ForceDeletePro
 }
 
 const getListProducts = `-- name: GetListProducts :many
-SELECT product_id, product_code, product_name, product_description, product_price, product_status, product_properties 
+SELECT product_id, product_code, product_name, product_description, product_price, product_status, product_properties, created_at, updated_at, deleted_at, product_display_name, product_image, product_category_id
 FROM products 
-WHERE product_id = ? 
-    AND product_code = ? 
+WHERE
+    (
+        product_code like ? 
+        OR product_name like ?
+    )
     AND product_status = ? 
     AND (created_at >= ? AND created_at <= ?) 
     AND (deleted_at >= ? AND deleted_at <= ?)
+    AND product_category_id = ?
 ORDER BY ?
 LIMIT ? 
 OFFSET ?
 `
 
 type GetListProductsParams struct {
-	ProductID     int64         `json:"product_id"`
-	ProductCode   string        `json:"product_code"`
-	ProductStatus int64         `json:"product_status"`
-	CreatedAt     sql.NullInt64 `json:"created_at"`
-	CreatedAt_2   sql.NullInt64 `json:"created_at_2"`
-	DeletedAt     sql.NullInt64 `json:"deleted_at"`
-	DeletedAt_2   sql.NullInt64 `json:"deleted_at_2"`
-	Limit         int64         `json:"limit"`
-	Offset        int64         `json:"offset"`
+	ProductCode       string        `json:"product_code"`
+	ProductName       string        `json:"product_name"`
+	ProductStatus     int64         `json:"product_status"`
+	CreatedAt         sql.NullInt64 `json:"created_at"`
+	CreatedAt_2       sql.NullInt64 `json:"created_at_2"`
+	DeletedAt         sql.NullInt64 `json:"deleted_at"`
+	DeletedAt_2       sql.NullInt64 `json:"deleted_at_2"`
+	ProductCategoryID int64         `json:"product_category_id"`
+	Limit             int64         `json:"limit"`
+	Offset            int64         `json:"offset"`
 }
 
 type GetListProductsRow struct {
@@ -105,17 +118,24 @@ type GetListProductsRow struct {
 	ProductPrice       int64          `json:"product_price"`
 	ProductStatus      int64          `json:"product_status"`
 	ProductProperties  sql.NullString `json:"product_properties"`
+	CreatedAt          sql.NullInt64  `json:"created_at"`
+	UpdatedAt          sql.NullInt64  `json:"updated_at"`
+	DeletedAt          sql.NullInt64  `json:"deleted_at"`
+	ProductDisplayName string         `json:"product_display_name"`
+	ProductImage       string         `json:"product_image"`
+	ProductCategoryID  int64          `json:"product_category_id"`
 }
 
 func (q *Queries) GetListProducts(ctx context.Context, arg GetListProductsParams) ([]GetListProductsRow, error) {
 	rows, err := q.db.QueryContext(ctx, getListProducts,
-		arg.ProductID,
 		arg.ProductCode,
+		arg.ProductName,
 		arg.ProductStatus,
 		arg.CreatedAt,
 		arg.CreatedAt_2,
 		arg.DeletedAt,
 		arg.DeletedAt_2,
+		arg.ProductCategoryID,
 		arg.Limit,
 		arg.Offset,
 	)
@@ -134,6 +154,12 @@ func (q *Queries) GetListProducts(ctx context.Context, arg GetListProductsParams
 			&i.ProductPrice,
 			&i.ProductStatus,
 			&i.ProductProperties,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.DeletedAt,
+			&i.ProductDisplayName,
+			&i.ProductImage,
+			&i.ProductCategoryID,
 		); err != nil {
 			return nil, err
 		}
@@ -149,7 +175,7 @@ func (q *Queries) GetListProducts(ctx context.Context, arg GetListProductsParams
 }
 
 const getProductByCategoryID = `-- name: GetProductByCategoryID :many
-SELECT product_id, product_name, product_code, product_description, product_price, product_status, product_properties FROM products WHERE product_category_id = ? ORDER BY ? LIMIT ?
+SELECT product_id, product_code, product_name, product_description, product_price, product_status, product_properties, created_at, updated_at, deleted_at, product_display_name, product_image, product_category_id FROM products WHERE product_category_id = ? ORDER BY ? LIMIT ?
 `
 
 type GetProductByCategoryIDParams struct {
@@ -159,12 +185,18 @@ type GetProductByCategoryIDParams struct {
 
 type GetProductByCategoryIDRow struct {
 	ProductID          int64          `json:"product_id"`
-	ProductName        string         `json:"product_name"`
 	ProductCode        string         `json:"product_code"`
+	ProductName        string         `json:"product_name"`
 	ProductDescription sql.NullString `json:"product_description"`
 	ProductPrice       int64          `json:"product_price"`
 	ProductStatus      int64          `json:"product_status"`
 	ProductProperties  sql.NullString `json:"product_properties"`
+	CreatedAt          sql.NullInt64  `json:"created_at"`
+	UpdatedAt          sql.NullInt64  `json:"updated_at"`
+	DeletedAt          sql.NullInt64  `json:"deleted_at"`
+	ProductDisplayName string         `json:"product_display_name"`
+	ProductImage       string         `json:"product_image"`
+	ProductCategoryID  int64          `json:"product_category_id"`
 }
 
 func (q *Queries) GetProductByCategoryID(ctx context.Context, arg GetProductByCategoryIDParams) ([]GetProductByCategoryIDRow, error) {
@@ -178,12 +210,18 @@ func (q *Queries) GetProductByCategoryID(ctx context.Context, arg GetProductByCa
 		var i GetProductByCategoryIDRow
 		if err := rows.Scan(
 			&i.ProductID,
-			&i.ProductName,
 			&i.ProductCode,
+			&i.ProductName,
 			&i.ProductDescription,
 			&i.ProductPrice,
 			&i.ProductStatus,
 			&i.ProductProperties,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.DeletedAt,
+			&i.ProductDisplayName,
+			&i.ProductImage,
+			&i.ProductCategoryID,
 		); err != nil {
 			return nil, err
 		}
@@ -199,17 +237,23 @@ func (q *Queries) GetProductByCategoryID(ctx context.Context, arg GetProductByCa
 }
 
 const getProductByCode = `-- name: GetProductByCode :one
-SELECT product_id, product_name, product_code, product_description, product_price, product_status, product_properties FROM products WHERE product_code = ?
+SELECT product_id, product_code, product_name, product_description, product_price, product_status, product_properties, created_at, updated_at, deleted_at, product_display_name, product_image, product_category_id FROM products WHERE product_code = ?
 `
 
 type GetProductByCodeRow struct {
 	ProductID          int64          `json:"product_id"`
-	ProductName        string         `json:"product_name"`
 	ProductCode        string         `json:"product_code"`
+	ProductName        string         `json:"product_name"`
 	ProductDescription sql.NullString `json:"product_description"`
 	ProductPrice       int64          `json:"product_price"`
 	ProductStatus      int64          `json:"product_status"`
 	ProductProperties  sql.NullString `json:"product_properties"`
+	CreatedAt          sql.NullInt64  `json:"created_at"`
+	UpdatedAt          sql.NullInt64  `json:"updated_at"`
+	DeletedAt          sql.NullInt64  `json:"deleted_at"`
+	ProductDisplayName string         `json:"product_display_name"`
+	ProductImage       string         `json:"product_image"`
+	ProductCategoryID  int64          `json:"product_category_id"`
 }
 
 func (q *Queries) GetProductByCode(ctx context.Context, productCode string) (GetProductByCodeRow, error) {
@@ -217,28 +261,40 @@ func (q *Queries) GetProductByCode(ctx context.Context, productCode string) (Get
 	var i GetProductByCodeRow
 	err := row.Scan(
 		&i.ProductID,
-		&i.ProductName,
 		&i.ProductCode,
+		&i.ProductName,
 		&i.ProductDescription,
 		&i.ProductPrice,
 		&i.ProductStatus,
 		&i.ProductProperties,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.DeletedAt,
+		&i.ProductDisplayName,
+		&i.ProductImage,
+		&i.ProductCategoryID,
 	)
 	return i, err
 }
 
 const getProductByID = `-- name: GetProductByID :one
-SELECT product_id, product_name, product_code, product_description, product_price, product_status, product_properties FROM products WHERE product_id = ?
+SELECT product_id, product_code, product_name, product_description, product_price, product_status, product_properties, created_at, updated_at, deleted_at, product_display_name, product_image, product_category_id FROM products WHERE product_id = ?
 `
 
 type GetProductByIDRow struct {
 	ProductID          int64          `json:"product_id"`
-	ProductName        string         `json:"product_name"`
 	ProductCode        string         `json:"product_code"`
+	ProductName        string         `json:"product_name"`
 	ProductDescription sql.NullString `json:"product_description"`
 	ProductPrice       int64          `json:"product_price"`
 	ProductStatus      int64          `json:"product_status"`
 	ProductProperties  sql.NullString `json:"product_properties"`
+	CreatedAt          sql.NullInt64  `json:"created_at"`
+	UpdatedAt          sql.NullInt64  `json:"updated_at"`
+	DeletedAt          sql.NullInt64  `json:"deleted_at"`
+	ProductDisplayName string         `json:"product_display_name"`
+	ProductImage       string         `json:"product_image"`
+	ProductCategoryID  int64          `json:"product_category_id"`
 }
 
 func (q *Queries) GetProductByID(ctx context.Context, productID int64) (GetProductByIDRow, error) {
@@ -246,14 +302,61 @@ func (q *Queries) GetProductByID(ctx context.Context, productID int64) (GetProdu
 	var i GetProductByIDRow
 	err := row.Scan(
 		&i.ProductID,
-		&i.ProductName,
 		&i.ProductCode,
+		&i.ProductName,
 		&i.ProductDescription,
 		&i.ProductPrice,
 		&i.ProductStatus,
 		&i.ProductProperties,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.DeletedAt,
+		&i.ProductDisplayName,
+		&i.ProductImage,
+		&i.ProductCategoryID,
 	)
 	return i, err
+}
+
+const getTotalProducts = `-- name: GetTotalProducts :one
+SELECT COUNT(product_id)
+FROM products
+WHERE product_id = ? 
+AND product_code like ?
+OR product_name like ?
+AND product_status = ? 
+AND (created_at >= ? AND created_at <= ?) 
+AND (deleted_at >= ? AND deleted_at <= ?)
+AND product_category_id = ?
+`
+
+type GetTotalProductsParams struct {
+	ProductID         int64         `json:"product_id"`
+	ProductCode       string        `json:"product_code"`
+	ProductName       string        `json:"product_name"`
+	ProductStatus     int64         `json:"product_status"`
+	CreatedAt         sql.NullInt64 `json:"created_at"`
+	CreatedAt_2       sql.NullInt64 `json:"created_at_2"`
+	DeletedAt         sql.NullInt64 `json:"deleted_at"`
+	DeletedAt_2       sql.NullInt64 `json:"deleted_at_2"`
+	ProductCategoryID int64         `json:"product_category_id"`
+}
+
+func (q *Queries) GetTotalProducts(ctx context.Context, arg GetTotalProductsParams) (int64, error) {
+	row := q.db.QueryRowContext(ctx, getTotalProducts,
+		arg.ProductID,
+		arg.ProductCode,
+		arg.ProductName,
+		arg.ProductStatus,
+		arg.CreatedAt,
+		arg.CreatedAt_2,
+		arg.DeletedAt,
+		arg.DeletedAt_2,
+		arg.ProductCategoryID,
+	)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
 }
 
 const restoreProductByID = `-- name: RestoreProductByID :exec
@@ -275,21 +378,18 @@ func (q *Queries) RestoreProductByID(ctx context.Context, arg RestoreProductByID
 }
 
 const searchProducts = `-- name: SearchProducts :many
-SELECT product_id, product_name, product_code, product_description, product_price, product_status, product_properties 
-FROM products 
-WHERE product_status = 1 
-    AND (product_id = ? OR product_name LIKE ? OR product_code LIKE ?)
-ORDER BY ? 
-LIMIT ? 
-OFFSET ?
+SELECT product_id, product_name, product_code, product_description, product_price, product_status, product_properties
+FROM products
+WHERE product_status = ?
+AND 
+(product_name LIKE ?
+OR product_code LIKE ?)
 `
 
 type SearchProductsParams struct {
-	ProductID   int64  `json:"product_id"`
-	ProductName string `json:"product_name"`
-	ProductCode string `json:"product_code"`
-	Limit       int64  `json:"limit"`
-	Offset      int64  `json:"offset"`
+	ProductStatus int64  `json:"product_status"`
+	ProductName   string `json:"product_name"`
+	ProductCode   string `json:"product_code"`
 }
 
 type SearchProductsRow struct {
@@ -303,13 +403,7 @@ type SearchProductsRow struct {
 }
 
 func (q *Queries) SearchProducts(ctx context.Context, arg SearchProductsParams) ([]SearchProductsRow, error) {
-	rows, err := q.db.QueryContext(ctx, searchProducts,
-		arg.ProductID,
-		arg.ProductName,
-		arg.ProductCode,
-		arg.Limit,
-		arg.Offset,
-	)
+	rows, err := q.db.QueryContext(ctx, searchProducts, arg.ProductStatus, arg.ProductName, arg.ProductCode)
 	if err != nil {
 		return nil, err
 	}
@@ -347,7 +441,9 @@ SET product_name = ?,
     product_price = ?,
     product_status = ?,
     product_properties = ?,
-    updated_at = ?
+    updated_at = ?,
+    product_category_id = ?,
+    product_display_name = ?
 WHERE product_id = ?
 `
 
@@ -359,6 +455,8 @@ type UpdateProductByIDParams struct {
 	ProductStatus      int64          `json:"product_status"`
 	ProductProperties  sql.NullString `json:"product_properties"`
 	UpdatedAt          sql.NullInt64  `json:"updated_at"`
+	ProductCategoryID  int64          `json:"product_category_id"`
+	ProductDisplayName string         `json:"product_display_name"`
 	ProductID          int64          `json:"product_id"`
 }
 
@@ -371,8 +469,28 @@ func (q *Queries) UpdateProductByID(ctx context.Context, arg UpdateProductByIDPa
 		arg.ProductStatus,
 		arg.ProductProperties,
 		arg.UpdatedAt,
+		arg.ProductCategoryID,
+		arg.ProductDisplayName,
 		arg.ProductID,
 	)
+	return err
+}
+
+const updateProductImageByID = `-- name: UpdateProductImageByID :exec
+UPDATE products
+SET product_image = ?,
+    updated_at = ?
+WHERE product_id = ?
+`
+
+type UpdateProductImageByIDParams struct {
+	ProductImage string        `json:"product_image"`
+	UpdatedAt    sql.NullInt64 `json:"updated_at"`
+	ProductID    int64         `json:"product_id"`
+}
+
+func (q *Queries) UpdateProductImageByID(ctx context.Context, arg UpdateProductImageByIDParams) error {
+	_, err := q.db.ExecContext(ctx, updateProductImageByID, arg.ProductImage, arg.UpdatedAt, arg.ProductID)
 	return err
 }
 

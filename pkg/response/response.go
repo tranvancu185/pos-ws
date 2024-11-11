@@ -2,7 +2,7 @@ package response
 
 import (
 	"net/http"
-	"tranvancu185/vey-pos-ws/internal/constants/messagecode"
+	"tranvancu185/vey-pos-ws/internal/uconst/messagecode"
 	"tranvancu185/vey-pos-ws/pkg/message"
 
 	"github.com/gin-gonic/gin"

@@ -101,7 +101,7 @@ type Product struct {
 	ProductStatus      int64          `json:"product_status"`
 	ProductProperties  sql.NullString `json:"product_properties"`
 	ProductCategoryID  int64          `json:"product_category_id"`
-	ProductImage       sql.NullString `json:"product_image"`
+	ProductImage       string         `json:"product_image"`
 	CreatedAt          sql.NullInt64  `json:"created_at"`
 	UpdatedAt          sql.NullInt64  `json:"updated_at"`
 	DeletedAt          sql.NullInt64  `json:"deleted_at"`
