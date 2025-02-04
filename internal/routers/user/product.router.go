@@ -34,7 +34,6 @@ func (pr *ProductRouter) InitProductRouter(c *gin.Context, Router *gin.RouterGro
 	{
 		productPrivateRouter.Use(middlewares.AuthMiddleware(uconst.FLAG_BYPASS_ROLE))
 		productPrivateRouter.POST("/create", productController.CreateProduct)
-		productPrivateRouter.GET("/detail/:id", productController.GetProductByID)
 		productPrivateRouter.PUT("/update/:id", productController.UpdateProduct)
 		productPrivateRouter.DELETE("/delete/:id", productController.DeleteProductByID)
 	}

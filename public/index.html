@@ -1,0 +1,44 @@
+<html>
+
+<head>
+  <title>Basic WebViewer</title>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+<style>
+  #viewer {
+    width: 100vw;
+    height: 100vh;
+    border: "1px solid black";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #table {
+    width: 50%;
+    border: "1px solid black";
+  }
+
+  .text-center {
+    text-align: center;
+  }
+</style>
+<!-- Import WebViewer as a script tag -->
+<script src="./static/lib/WebView/webviewer.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/jsdiff@1.1.1/index.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./main.js"></script>
+
+<body>
+  <div class="text-center">
+    <input id="fromDate">
+    <input id="datetime">
+    <button onclick="main()">Click me</button>
+  </div>
+  <div id="viewer"></div>
+</body>
+
+<script></script>
+
+</html>
