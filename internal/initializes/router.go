@@ -9,6 +9,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/gzip"
 
+	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -72,8 +73,8 @@ func InitRouter() *gin.Engine {
 }
 
 func ExeStatic(router *gin.Engine) *gin.Engine {
-	// router.Use(static.Serve("/", static.LocalFile(global.Config.Path.PathWeb, true)))
+	router.Use(static.Serve("/", static.LocalFile(global.Config.Path.PathWeb, true)))
 	// router.Use(static.Serve("/", static.LocalFile("", true)))
-	router.Static("/home", "./public")
+	// router.Static("/home", "./public")
 	return router
 }
