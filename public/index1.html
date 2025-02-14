@@ -1,0 +1,1503 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="lM4Oielq2PjbeN2V37cxj7aUCpcbk05SZTNRkUy6">
+    <title>inside.HASAKI.vn</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="icon" type="image/png"
+        href="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/img/favicon.png">
+    <link href="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/bootstrap/css/bootstrap.min.css"
+        rel="stylesheet" type="text/css">
+    <link href="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
+    <link href="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/css/AdminLTE.min.css" rel="stylesheet"
+        type="text/css">
+    <link href="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/css/skins/skin-blue.min.css"
+        rel="stylesheet" type="text/css">
+    <link href="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/css/pagination.css" rel="stylesheet"
+        type="text/css">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet"
+        href="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/select2/css/select2.min.css">
+
+
+    <style>
+        @media print {
+            .page-break {
+                page-break-before: always;
+            }
+
+            html,
+            body,
+            div,
+            table,
+            tr,
+            td,
+            p {
+                font-size: 9pt;
+            }
+        }
+
+        @media print {
+            html {
+                zoom: 50%;
+            }
+        }
+
+        .table>thead>tr>th,
+        .table>tbody>tr>td {
+            border-bottom: 2px dashed #333;
+            padding: 3px;
+        }
+
+        .table>tbody>tr>td.no_line {
+            border-bottom: 0px;
+            padding: 3px;
+        }
+
+        .table {
+            margin-bottom: 0px;
+        }
+
+        hr {
+            margin-bottom: 3px;
+            margin-top: 3px;
+            border-bottom: 2px dashed #333;
+        }
+    </style>
+
+
+    <style>
+        @keyframes loading {
+            0% {
+                transform: rotate(0)
+            }
+
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .ag-textarea .MuiInputBase-input::-webkit-scrollbar {
+            height: 6px;
+            width: 6px
+        }
+
+        .ag-textarea .MuiInputBase-input::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        .ag-textarea .MuiInputBase-input::-webkit-scrollbar-thumb {
+            background: #dfdfdf;
+            border-radius: 4px
+        }
+
+        .ag-textarea .MuiInputBase-input::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4
+        }
+    </style>
+</head>
+
+<body class="skin-blue sidebar-mini">
+    <div id="ag-1738652352335"></div>
+    <div class="wrapper">
+
+        <!-- Header -->
+        <header class="main-header">
+
+            <!-- Logo -->
+            <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public" class="logo">
+                <span class="logo-mini"><img
+                        src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/img/logo_white_mini.png"
+                        width="30"></span>
+                <span class="logo-lg">
+                    <img src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/img/logo_white.png">
+                </span>
+            </a>
+
+
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">navigation</span>
+                </a>
+
+                <div class="container-fluid">
+
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <ul class="nav navbar-nav">
+
+
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/pointos/receipt/empty">
+                                    <strong>POS</strong>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/voucher"
+                                    target="_blank">
+                                    <strong>Voucher</strong>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/pointos/promotion"
+                                    target="_blank">
+                                    <strong>Promotion</strong>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+
+                            <li class="dropdown">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/common/profile/notification"
+                                    id="showTopNotification" class="dropdown-toggle">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span class="label label-warning">0</span>
+                                    <!--
+                    <ul class="dropdown-menu" role="menu" id="contentTopNotification">
+  
+                          <li ><a href="javascript:;">
+                              <i class="fa fa-warning text-yellow"></i>
+                              Loading...</a>
+                          </li>
+  
+                    </ul>
+                    -->
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-user">&nbsp;</i>
+                                    quyhsk@hasaki.vn
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a
+                                            href="http://www.inshasaki.local/hasaki/hasaki-inside/public/common/profile/dashboard"><i
+                                                class="fa fa-user"></i>Profile</a></li>
+                                    <li><a
+                                            href="http://www.inshasaki.local/hasaki/hasaki-inside/public/common/profile/reconcile"><i
+                                                class="fa fa-calculator"></i>Reconcile</a></li>
+                                    <li><a
+                                            href="http://www.inshasaki.local/hasaki/hasaki-inside/public/common/profile/receipt"><i
+                                                class="fa fa-dollar"></i>Receipts</a></li>
+                                    <li><a
+                                            href="http://www.inshasaki.local/hasaki/hasaki-inside/public/common/support-request"><i
+                                                class="fa fa-support"></i>Support Request</a></li>
+                                    <li><a
+                                            href="http://www.inshasaki.local/hasaki/hasaki-inside/public/setting/user/change-password"><i
+                                                class="fa fa-lock"></i>Change Password</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/auth/logout"><i
+                                                class="fa fa-sign-out"></i>Sign Out</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                    <!-- /.navbar-collapse -->
+
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+        </header>
+
+        <!-- Sidebar -->
+        <!-- Left side column. contains the sidebar -->
+        <aside class="main-sidebar">
+
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+
+
+                <!-- search form (Optional) -->
+                <form action="http://www.inshasaki.local/hasaki/hasaki-inside/public/dashboard/search" method="get"
+                    class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="kw" class="form-control" placeholder="#order_id,Phone">
+                        <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
+                                    class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+                <!-- /.search form -->
+
+                <!-- Sidebar Menu -->
+                <ul class="sidebar-menu">
+
+                    <li class="header">MAIN NAVIGATION</li>
+
+                    <li class="">
+                        <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/pointos/receipt/empty "><i
+                                class="fa fa-laptop"></i><span>&nbsp;POS</span></a>
+                    </li>
+
+                    <li class="treeview active">
+
+                        <a href="#"><i class="fa fa-shopping-cart"></i>&nbsp;<span>Sales</span><i
+                                class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/dashboard">Dashboard</a>
+                            </li>
+                            <li class="active">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/order">Orders</a>
+                            </li>
+
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/order-exchange">Orders
+                                    Exchange</a>
+                            </li>
+
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/exchange-shipping-order">Exchange
+                                    Shipping Orders</a>
+                            </li>
+
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/order/filter-sku">Orders
+                                    By Sku</a>
+                            </li>
+
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/backorder">Back
+                                    Orders</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/product">Products</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/productoutstock">Out
+                                    Stock</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/return">Return</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/customer">Customers</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/packed">Packed</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/voucher/create-from-receipt">Voucher
+                                    Receipt</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/order/shopee">Shopee
+                                    Orders</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/lazada">Lazada
+                                    Orders</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/tiktok">Tiktok
+                                    Orders</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/pointos/receipt/gift "><span>Gift</span></a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/unit-conversion "><span>Unit-Conversion
+                                        | Combo</span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+
+                        <a href="#"><i class="fa fa-dollar "></i>&nbsp;<span>Purchase</span><i
+                                class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/purchase/purchase-requisition">Purchase
+                                    Requisition</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/purchase/order">Purchase
+                                    Orders</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/purchase/contract">Contracts</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/purchase/invoice">Invoices</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/purchase/vendor">Vendors</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/purchase/discount ">Promotions</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/purchase/return">Returns</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/purchase/order/payment-plan">PO
+                                    Payment Plan</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/purchase/exchange-rate?currency_id%5B0%5D=2">Exchange
+                                    Rate</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+
+                        <a href="#"><i class="fa fa fa-truck"></i>&nbsp;<span>Delivery</span><i
+                                class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/delivery/zone-order">Zone
+                                    Order</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/delivery/packed/createso-shipper">Packed</a>
+                            </li>
+
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/delivery/shipping-order">Shiping
+                                    Order</a>
+                            </li>
+
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/delivery/receipt/shipping-order">Receipts</a>
+                            </li>
+
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/delivery/giaohangnhanh/shipping-order/import">Import
+                                    SO</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/delivery/zone">Zones</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/sales/order/statistic">Dashboard</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/shipper/tracking">Tracking</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/delivery/hasakinow">Hasaki
+                                    Now</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="">
+                        <a href="https://spa.inshasaki.com"><i class="fa fa-leaf"></i>&nbsp;<span>SPA</span></a>
+                    </li>
+
+                    <li class="treeview">
+
+                        <a href="#"><i class="fa fa-th"></i>&nbsp;<span>Inventory</span><i
+                                class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/stock/detail-sku">Stock</a>
+                            </li>
+                            <li class="hidden ">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/stock/import-export">Import/Export</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/intransfer">Internal
+                                    Transfer</a>
+                            </li>
+
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/receiving/po">Receiving
+                                    PO</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/receiving/order">Receiving
+                                    Order</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/product-store">Store</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/stock/adjustment/checking">Check
+                                    List</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/stock/adjustment">Adjustment
+                                    List</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/setting/stock-import-export">Re-push
+                                    Import/Export</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/packed-label">Packed
+                                    Label</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/bin-location">Bin
+                                    Location</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/expiration">Expiration</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/asset">Assets
+                                    List</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/picking/order">Picking</a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+
+                        <a href="#">
+                            <i class="fa fa-calculator"></i>&nbsp;
+                            <span>Accounting</span><i class="fa fa-angle-left pull-right"></i></a>
+
+                        <ul class="treeview-menu">
+
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/accounting/balance">Balance
+                                    <span class="pull-right-container">
+                                        <small class="label pull-right"><i class="fa fa-star"></i></small>
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/accounting/receipt">Receipt</a>
+                            </li>
+
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/accounting/payment">Payments</a>
+                            </li>
+
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/accounting/ledger">Ledgers</a>
+                            </li>
+
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/accounting/payment-transaction">Payment
+                                    Transactions</a>
+                            </li>
+
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/accounting/payment-receipt/list">Payment
+                                    Receipts</a>
+                            </li>
+
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/accounting/invoice">Invoices</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-bar-chart"></i><span>&nbsp;Reports</span> <i
+                                class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/accounting/dashboard">Accounting
+                                    <span class="pull-right-container">
+                                        <small class="label pull-right"><i class="fa fa-star"></i></small>
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/spa/dashboard">SPA
+                                </a>
+                            </li>
+
+                            <li class="hidden ">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/stock">Stock</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/reconcile">Reconcile</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/order/daily">Orders</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/receipt/daily">Receipts</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/customer">Customers</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/staff/commission">Staffs</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/product">Products</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/service">Services</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/purchase-order">Purchase
+                                    Order</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/payment">Payments</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/shipping-order">Shipping
+                                    Order</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/zone">Zones</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/activity">Activity
+                                    log</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/api-order">Api
+                                    Order Log</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/logs">Logs</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/sale/quantity">Sales</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/report/intransfer">Internal
+                                    Transfer</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-briefcase"></i><span>&nbsp;Company</span> <i
+                                class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li class="">
+                                <a href="https://hr.hasaki.vn/company/staff-schedule" target="_blank">Staff Schedule</a>
+                            </li>
+                            <li class="">
+                                <a href="https://hr.hasaki.vn/company/staff-leave" target="_blank">Staff Leave</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/company/staff">Staff</a>
+                            </li>
+
+                            <li class="">
+                                <a href="https://hr.hasaki.vn/company/timesheet" target="_blank">Timesheet</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/company/file">Files</a>
+                            </li>
+                            <li>
+                                <a href="https://hr.hasaki.vn" target="_blank">New HR</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview">
+
+                        <a href="#"><i class="fa fa-cogs"></i>&nbsp;<span>Setting</span><i
+                                class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/setting/role">Roles</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/setting/user">Users</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/setting/shipper">Shipper</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/setting/city">Locations</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/setting/sms/send">SMS</a>
+                            </li>
+                            <li class="">
+                                <a
+                                    href="http://www.inshasaki.local/hasaki/hasaki-inside/public/setting/product/bid-price">Bid
+                                    Price</a>
+                            </li>
+                            <li class="">
+                                <a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/setting/stock">Stock</a>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <li class=""><a href="#"><i class="fa fa-question-circle"></i><span>&nbsp;Help</span></a></li>
+
+                    <li class=""><a href="http://www.inshasaki.local/hasaki/hasaki-inside/public/auth/logout"><i
+                                class="fa fa-sign-out"></i><span>&nbsp;Sign out</span></a></li>
+
+                </ul><!-- /.sidebar-menu -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper" style="min-height: 810px;">
+
+            <section class="content-header">
+                <h1>
+                    Print-Order
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-shopping-cart"></i> Sales</a></li>
+                    <li>Orders</li>
+                </ol>
+            </section>
+
+            <section class="content">
+
+
+                <div class="row hide_for_vnpost">
+
+                    <div class="col-md-12">
+
+                        <div class="box">
+
+                            <div class="box-body">
+
+                                <form method="get"
+                                    action="http://www.inshasaki.local/hasaki/hasaki-inside/public/inventory/packing/create"
+                                    class="form-horizontal">
+
+                                    <div class="col-md-4">
+                                        <input name="code" id="txt_packing_code" class="form-control  input-lg"
+                                            type="text" placeholder="Code" value="" autofocus="">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="col-xs-4">
+                                            <button class="btn btn-primary btn-lg" type="submit"><i
+                                                    class="fa fa-barcode">&nbsp;</i>Scan Packing Slip</button>
+                                        </div>
+                                        <div class="col-xs-8 text-right">
+                                            <select title="" id="selected_user_id"
+                                                class="form-control select2 select2-hidden-accessible"
+                                                style="width: 70%" tabindex="-1" aria-hidden="true">
+                                            </select><span class="select2 select2-container select2-container--default"
+                                                dir="ltr" style="width: 70%;"><span class="selection"><span
+                                                        class="select2-selection select2-selection--single"
+                                                        role="combobox" aria-haspopup="true" aria-expanded="false"
+                                                        title="" tabindex="0"
+                                                        aria-labelledby="select2-selected_user_id-container"><span
+                                                            class="select2-selection__rendered"
+                                                            id="select2-selected_user_id-container"><span
+                                                                class="select2-selection__placeholder">Chọn người pick
+                                                                đơn khác: Name | Email</span></span><span
+                                                            class="select2-selection__arrow" role="presentation"><b
+                                                                role="presentation"></b></span></span></span><span
+                                                    class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                            <button onclick="submitNextOrder();" class="btn btn-success"
+                                                type="button">Đơn tiếp theo&nbsp;<i
+                                                    class="fa fa-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <div class="box box-default">
+
+
+                            <div class="box-header with-border hide_for_vnpost">
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <button id="print_pdf" class="btn btn-default btn-lg"><i
+                                                class="fa fa-file">&nbsp;</i>&nbsp;Export PDF</button>
+                                        <button class="btn btn-warning btn-lg print-a7" type="button"
+                                            id="btn_print_order">
+                                            <i class="fa fa-print">&nbsp;</i>&nbsp;Print
+                                        </button>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div id="print_content_so_a6">
+
+                                <style>
+                                    .order_print_wrapper {
+                                        display: flex;
+                                        height: 60vh;
+                                        box-sizing: border-box;
+                                        flex-wrap: wrap;
+                                        margin-bottom: 500px;
+                                        border: 1px solid black;
+                                        align-content: flex-start;
+                                        width: 600px;
+                                        overflow: hidden;
+                                    }
+
+                                    .row_order_print_wrapper {
+                                        width: 100%;
+                                        display: flex;
+                                        box-sizing: border-box;
+                                        flex-wrap: wrap;
+                                        border-right: unset !important;
+                                        border-left: unset !important;
+                                        border-top: unset !important;
+                                    }
+
+                                    .row_order_print_wrapper>div {
+                                        padding: 8px;
+                                    }
+
+                                    .row_order_print_wrapper>div:first-child {
+                                        border-left: unset !important;
+                                    }
+
+                                    .row_order_print_wrapper>div:second-child {
+                                        border-right: unset !important;
+                                    }
+
+                                    .img {
+                                        height: auto;
+                                        width: 200px;
+                                    }
+
+                                    .logo-hasakinow {
+                                        width: 80px;
+                                        height: auto;
+                                        margin: 15px auto -10px;
+                                    }
+
+                                    .border-bottom {
+                                        border-bottom: 0.1em solid rgb(167, 165, 165)
+                                    }
+
+                                    .border-right {
+                                        border-right: 0.1em solid rgb(167, 165, 165)
+                                    }
+
+                                    .span-left {
+                                        padding-left: 5px
+                                    }
+
+                                    .info-customer {
+                                        font-weight: 700;
+                                        font-size: 15px;
+                                        margin-left: 3px;
+                                    }
+
+                                    .address-customer {
+                                        font-size: 15px !important;
+                                    }
+
+                                    .price-total {
+                                        font-size: 20px;
+                                        padding-left: 30px
+                                    }
+
+                                    .pack-code {
+                                        height: 40px;
+                                        width: 60%;
+                                    }
+
+                                    .cut-text-hidden {
+                                        width: 550px;
+                                        /* Điều chỉnh chiều rộng theo nhu cầu */
+                                        display: -webkit-box;
+                                        -webkit-line-clamp: 2;
+                                        /* Giới hạn tối đa 2 dòng */
+                                        -webkit-box-orient: vertical;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                    }
+
+                                    .info-div {
+                                        height: 8vh;
+                                    }
+
+                                    .shop-name {
+                                        position: absolute;
+                                        bottom: 28%;
+                                        /* Khoảng cách từ dưới lên */
+                                        right: 3%;
+                                        /* Khoảng cách từ phải sang */
+                                        font-size: 14px;
+                                        color: #333;
+                                    }
+
+                                    .component-note {
+                                        position: relative;
+                                    }
+
+                                    .total-item-position {
+                                        position: absolute;
+                                        right: 20px;
+                                        top: 17px;
+                                    }
+
+                                    .total-item-box {
+                                        font-size: 25px;
+                                        border: 1px solid black;
+                                        border-radius: 8px;
+                                        padding-left: 15px;
+                                        padding-right: 15px;
+                                        padding-top: 5px;
+                                        padding-bottom: 5px;
+                                    }
+
+                                    @media print {
+                                        @page {
+                                            margin: 0px !important;
+                                            padding: 0px !important;
+                                            overflow-y: hidden;
+                                        }
+
+                                        .order_print_wrapper {
+                                            width: 100% !important;
+                                            height: 70vh !important;
+                                            padding-top: 0px !important;
+                                            font-size: 4.71px !important;
+                                            overflow-y: hidden;
+                                            border: unset;
+                                            box-sizing: border-box;
+                                        }
+
+                                        .row_order_print_wrapper {
+                                            margin: 0px !important;
+                                            padding: 0px !important;
+                                            height: 20vh;
+                                            overflow: hidden;
+                                            padding: 1px !important;
+                                        }
+
+                                        .row_order_print_wrapper>div {
+                                            margin: 0px !important;
+                                            padding: 0px !important;
+                                        }
+
+                                        .row_order_print_wrapper p:not(.note_this_group_prod) {
+                                            overflow: hidden;
+                                            display: -webkit-box;
+                                            -webkit-line-clamp: 3;
+                                            -webkit-box-orient: vertical;
+                                        }
+
+
+                                        h1,
+                                        h2,
+                                        h3 {
+                                            font-size: 15.7px;
+                                            margin: 0px !important;
+                                        }
+
+                                        P {
+                                            line-height: 15.7px;
+                                            margin: 2px;
+                                        }
+
+                                        p:not(.note_this_font) {
+                                            font-size: 12.56px;
+                                        }
+
+                                        .header {
+                                            padding-top: 10px !important;
+                                            padding-left: 10px !important;
+                                        }
+
+                                        .footer {
+                                            margin-top: 10px !important;
+                                        }
+
+                                        .img {
+                                            height: auto;
+                                            width: 240px;
+                                        }
+
+                                        .logo-hasakinow {
+                                            width: 120px;
+                                            height: auto;
+                                            margin: 10px 10px -9px !important;
+                                        }
+
+                                        .content {
+                                            font-size: 19px;
+                                            /* font-weight: 550 */
+                                        }
+
+                                        .span-left {
+                                            padding-left: 0px !important;
+                                            font-size: 19px !important;
+                                        }
+
+                                        .info-customer {
+                                            /* font-weight: 600 !important;  */
+                                            font-size: 21px !important;
+                                            margin-left: 3px !important;
+                                        }
+
+                                        .address-customer {
+                                            font-size: 25px !important;
+
+                                        }
+
+                                        .price-total {
+                                            font-size: 25px;
+                                            padding-left: 25px
+                                        }
+
+                                        .pack-code {
+                                            height: 55px;
+                                            width: 75%;
+                                        }
+
+                                        .order-packed-code {
+                                            font-size: 21px;
+                                            /* font-weight: 550 !important;  */
+                                        }
+
+                                        .contact {
+                                            font-size: 21px;
+                                            text-align: justify;
+                                        }
+
+                                        .border-bottom {
+                                            border-bottom: 0.1em solid rgb(167, 165, 165)
+                                        }
+
+                                        .border-right {
+                                            border-right: 0.1em solid rgb(167, 165, 165)
+                                        }
+
+                                        .div-contact {
+                                            margin-left: 15px !important;
+                                            margin-top: 30px !important;
+                                        }
+
+                                        .cut-text-hidden {
+                                            width: 530px;
+                                            /* Điều chỉnh chiều rộng theo nhu cầu */
+                                            display: -webkit-box;
+                                            -webkit-line-clamp: 2;
+                                            /* Giới hạn tối đa 2 dòng */
+                                            -webkit-box-orient: vertical;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                        }
+
+                                        .info-div {
+                                            height: auto !important;
+                                        }
+
+                                        .shop-name {
+                                            position: absolute;
+                                            bottom: 30%;
+                                            /* Khoảng cách từ dưới lên */
+                                            right: 3%;
+                                            /* Khoảng cách từ phải sang */
+                                            font-size: 16px;
+                                            color: #333;
+                                        }
+
+                                        .component-note {
+                                            position: relative;
+                                        }
+
+                                        .total-item-position {
+                                            position: absolute;
+                                            right: 25px;
+                                            top: 10px;
+                                        }
+
+                                        .total-item-box {
+                                            font-size: 35px;
+                                            border: 1px solid black;
+                                            border-radius: 8px;
+                                            padding-left: 10px;
+                                            padding-right: 10px;
+                                            padding-top: 0px;
+                                            padding-bottom: 0px;
+                                        }
+
+                                        .total-item-text {
+                                            padding-left: 0px !important;
+                                            padding-right: 0px !important;
+                                            font-size: 14px !important;
+                                        }
+
+                                        .amount-total-text {
+                                            font-size: 30px !important;
+                                            padding: 0px !important;
+                                            margin: 0px !important;
+                                        }
+
+                                        .amount-total {
+                                            font-size: 30px !important;
+                                            padding: 0px !important;
+                                            margin: 0px !important;
+                                        }
+                                    }
+                                </style>
+                                <div class="order_print_wrapper">
+                                    <div class="row_order_print_wrapper header border-bottom"
+                                        style="height:12vh; border-top:unset !important; ">
+                                        <div class="" style="width:70%;">
+                                            <div style="width: 100%;">
+                                                <img class="img-responsive img"
+                                                    src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/img/logos/hasaki-black.png">
+                                            </div>
+
+                                            <div style="width: 100%; margin:5px 0px 0px -15px; line-height:22px">
+                                                <b class="content"></b><br>
+                                                <b class="content">Hotline: 1800 6324 - www.hasaki.vn</b>
+                                            </div>
+                                        </div>
+
+                                        <div class="" style="width:30%;">
+                                        </div>
+                                    </div>
+
+                                    <div class="row_order_print_wrapper info-div"
+                                        style="justify-content: center; padding-top:0px !important;">
+                                        <div style="width: 100%">
+                                            <span class="span-left"> Người nhận:</span> <b class="info-customer">Trần
+                                                Quý </b><br>
+                                            <div class="cut-text-hidden">
+                                                <span class="span-left"> Địa chỉ: <span class="address-customer">ĐỐng
+                                                        đa</span></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row_order_print_wrapper"
+                                        style="justify-content: center; height:12vh; padding-top:0px !important;">
+                                        <div class=""
+                                            style="width:100%; border-top: 0.1em solid rgb(167, 165, 165); border-bottom: 0.1em solid rgb(167, 165, 165); position: relative;">
+                                            <div style="width:90%;">
+                                                <div style="text-align:center; padding-top:10px">
+                                                    <img class="pack-code"
+                                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAeAQMAAAAPe4DLAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAADBJREFUKJFj+MzDbMN//swHmz8Hzp///OE8Pz+/wYEP5+2ZD/w5zzAqOSo5Kkm5JADUyNmemQPEZQAAAABJRU5ErkJggg=="
+                                                        alt="KVS250204">
+                                                </div>
+                                                <div style="text-align:center; padding-top: 4px">
+                                                    <span class="order-packed-code">KVS250204</span>
+                                                </div>
+                                            </div>
+                                            <div class="total-item-position">
+                                                <div class="total-item-box text-center text-bold">
+                                                    99
+                                                </div>
+                                                <div class="text-center">
+                                                    <span class="span-left total-item-text text-center"
+                                                        style="font-size: 12px; padding-right: 5px; margin-top: 10px;">Sản
+                                                        phẩm
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row_order_print_wrapper" style="justify-content: center; height:5vh;">
+                                        <div class="border-bottom" style="width: 100%;">
+                                            <b class="amount-total-text"
+                                                style="font-size: 22px; margin: auto; float:left;"> Tổng
+                                                thanh toán:</b>
+                                            <span class="text-bold amount-total" style="font-size: 25px; float:right;">
+                                                774,000 <small>VNĐ</small>
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row_order_print_wrapper"
+                                        style="justify-content: center; height:26vh; padding-top:0px !important;  border-top: 0.1em solid #ddd;">
+                                        <div class="" style="width:40%; text-align:center">
+                                            <img class="footer" style="margin-bottom: 8px"
+                                                src="data:image/png;base64,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"
+                                                alt="" height="160" width="170">
+                                            <br>
+                                            <span class="order-packed-code">25020400002</span>
+                                        </div>
+                                        <div style="width:60%;" class="component-note">
+                                            <div class="div-contact">
+                                                <span class="contact">Quét mã để xem thông tin chi tiết đơn hàng &amp;
+                                                    nhập thông tin xuất hóa đơn trước khi đơn hàng hoàn thành trước 20
+                                                    giờ</span>
+                                            </div>
+                                            <span class="shop-name">
+                                                <strong>
+                                                    Moto&nbsp;-&gt;&nbsp;
+                                                </strong>
+                                                SHOP - 276 XO VIET NGHE TINH
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+
+                            <br>
+                            <hr>
+
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+        </div>
+        <footer class="main-footer">
+            <!-- To the right -->
+            <div class="pull-right hidden-xs">
+                <i class="fa fa-phone"></i> Hotline 1900.636.900
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright © 2016 <a href="http://hasaki.vn" target="_blank">Hasaki.vn</a>.</strong> All rights
+            reserved.
+        </footer>
+    </div><!-- ./wrapper -->
+    <script
+        src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/notify/easy-notify.js"
+        type="text/javascript"></script>
+    <script src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/bootstrap/js/bootstrap.min.js"
+        type="text/javascript"></script>
+    <script src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/notify/bootstrap-notify.min.js"
+        type="text/javascript"></script>
+    <script src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/js/app.min.js"
+        type="text/javascript"></script>
+    <script src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/js/main.js?t=20181103"
+        type="text/javascript"></script>
+    <script src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/socket.io/socket.io-1.4.5.js"
+        type="text/javascript"></script>
+    <script type="text/javascript">
+        var APP_ENV = "qc";
+        var BASE_URL = "http://www.inshasaki.local/hasaki/hasaki-inside/public";
+        var STATIC_URL = "http://www.inshasaki.local/hasaki/hasaki-inside/public/static";
+        var IMAGE_URL = "";
+        var VIDEO_URL = "";
+        var __jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE3MjYxLCJpc3MiOiJodHRwczovL3Rlc3Qtd3MuaW5zaGFzYWtpLmNvbS9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTczODY1MDkyNywiZXhwIjoxNzY0OTMwOTI3LCJuYmYiOjE3Mzg2NTA5MjcsImp0aSI6ImJFenM5cTRocjJJWnJZWGIifQ.jxm-87f6j-BAl_OHmBCj8qDJDu34bSkm7DyAmORWc74", WS_URL = "https://test-ws.inshasaki.com/api", WWS_URL = "https://test-partner.hasaki.vn";
+
+        var __PAYMENT_STORE = "4";
+
+        var _csrf_token = "lM4Oielq2PjbeN2V37cxj7aUCpcbk05SZTNRkUy6";
+
+        //thay đổi PRIVATE_NOTIFICATION ảnh hưởng extension pick price
+        var PRIVATE_NOTIFICATION = 'beaeffc6aa995af55c94a0616b6cb3a6', roleId = 130;
+    </script>
+    <script
+        src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/js/general-functions.js?t=20181103"></script>
+    <script
+        src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/pagination/pagination.min.js"></script>
+    <script src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/xlsx/xlsx.full.min.js"></script>
+    <script src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/chart/chart.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            function handlePrint() {
+                $("body").eq(0).click();
+                var allLinks = $('head').clone().find('script').remove().end().html();
+                var printContent = document.getElementById("print_content_so_a6");
+
+                var newWindow = window.open('', 'Print-Window');
+                newWindow.focus();
+                newWindow.document.open();
+                newWindow.document.write('<html><head>' + allLinks + '</head><body onload="window.print();">' + printContent.innerHTML + '</body></html>');
+                newWindow.document.close();
+
+                setTimeout(function () {
+                    newWindow.close();
+                }, 1000);
+            }
+
+            $("#btn_print_order").on("click", function (e) {
+                handlePrint();
+            });
+
+        });
+    </script>
+    <script
+        src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/jQuery/jquery.cookie.js"></script>
+    <script
+        src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/firebasejs/firebase-app.js"></script>
+    <script
+        src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/firebasejs/firebase-messaging.js"></script>
+    <!-- For an optimal experience using Cloud Messaging, also add the Firebase SDK for Analytics. -->
+
+    <script type="text/javascript">
+        var getTotalMessage = function () {
+            $.ajax({
+                url: WS_URL + '/setting/user/notification/total?app_id=4',
+                type: "GET",
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + __jwt);
+                },
+                processData: false,
+                contentType: 'application/json',
+                dataType: "json",
+                success: function (response) {
+                    if (response && response.data && response.data) {
+                        localStorage.setItem(PRIVATE_NOTIFICATION + '-total', response.data.total)
+                        $('a#showTopNotification span.label-warning').html(response.data.total)
+                    }
+                }
+            })
+        };
+        const config = {
+            apiKey: "AIzaSyB_Vj7IU_d7NrfL8Ot-hvK3g_RFHbiFYIQ",
+            authDomain: "inside-1b6b2.firebaseapp.com",
+            databaseURL: "https://inside-1b6b2.firebaseio.com",
+            projectId: "inside-1b6b2",
+            storageBucket: "inside-1b6b2.appspot.com",
+            messagingSenderId: "497747133220",
+            appId: "1:497747133220:web:4c95fddf58fbb8953ba9b1",
+            measurementId: "G-G5Q2WS8H02"
+        };
+        firebase.initializeApp(config);
+
+        const messaging = firebase.messaging();
+        messaging
+            .requestPermission()
+            .then(function () {
+                console.log("Notification permission granted.");
+
+                // get the token in the form of promise
+                return messaging.getToken()
+            })
+            .then(function (token) {
+                console.log("token is : " + token)
+                if ($.cookie('fcm_token') != PRIVATE_NOTIFICATION) {
+                    $.ajax({
+                        url: WS_URL + '/setting/user/fcm',
+                        type: "POST",
+                        beforeSend: function (request) {
+                            request.setRequestHeader("Authorization", 'Bearer ' + __jwt);
+                        },
+                        processData: false,
+                        contentType: 'application/json',
+                        dataType: "json",
+                        data: JSON.stringify({
+                            'token': token,
+                            'app_id': 4,
+                        }),
+                        success: function (response) {
+                            $.cookie('fcm_token', PRIVATE_NOTIFICATION);
+                        }
+                    })
+                }
+
+            })
+            .catch(function (err) {
+                console.log("Unable to get permission to notify.", err);
+            });
+
+        messaging.onMessage(function (payload) {
+            getTotalMessage()
+            const { title, ...options } = payload.notification;
+            navigator.serviceWorker.ready.then(registration => {
+                console.log('OK', registration)
+                registration.showNotification(title, options);
+            });
+        });
+        $(function () {
+            let total = localStorage.getItem(PRIVATE_NOTIFICATION + '-total');
+            if (!total) {
+                total = 0;
+            }
+            $('a#showTopNotification span.label-warning').html(total)
+        })
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script
+        src="http://www.inshasaki.local/hasaki/hasaki-inside/public/static/plugins/select2/js/select2.min.js"></script>
+    <script>
+
+
+        function submitNextOrder() {
+            let stock_id = '1005';
+            let cur_user_id = '17261';
+            let user_id = $('#selected_user_id').val();
+            user_id = user_id != null && parseInt(user_id) > 0 ? user_id : cur_user_id;
+            let type = '';
+            return window.location.href = BASE_URL + '/inventory/packing/' + (type === 'partner' ? 'partner' : 'create') + '?action=_NEXT_ORDER_&stock_id=' + stock_id + '&user_id=' + user_id;
+        }
+
+        async function generatePDF(content, name) {
+            var HTML_Width = $(content).width();
+            var HTML_Height = $(content).height();
+            var top_left_margin = 15;
+            var PDF_Width = HTML_Width + (top_left_margin * 2);
+            var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+            var canvas_image_width = HTML_Width;
+            var canvas_image_height = HTML_Height;
+
+            var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+            var canvas = await html2canvas($(content)[0])
+
+            var imgData = canvas.toDataURL("image/jpeg", 1.0);
+            var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+            pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+            for (var i = 1; i <= totalPDFPages; i++) {
+                pdf.addPage(PDF_Width, PDF_Height);
+                pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+            }
+
+            return btoa(pdf.output());
+        }
+
+
+        $('#print_pdf').click(function () {
+            const sendPDF = async function (a, b) {
+                let file_order = await generatePDF('#content_print', "25020400002" + '_order');
+
+                let file_partner = null;
+                if ($('#pdfContent').length > 0) {
+                    file_partner = await generatePDF('#pdfContent', "25020400002" + '_shipping');
+                }
+
+                $.ajax({
+                    url: "",
+                    headers: {
+                        'X-CSRF-TOKEN': 'lM4Oielq2PjbeN2V37cxj7aUCpcbk05SZTNRkUy6'
+                    },
+                    type: 'post',
+                    data: {
+                        file_order: file_order,
+                        file_partner: file_partner,
+                        printer: [1, 2]
+                    },
+                    success: function (response) {
+                        if (response != 0) {
+                            alert("Thành công")
+                        } else {
+                            alert("Thất bại")
+                        }
+                    },
+                });
+            }
+
+            sendPDF()
+        });
+
+        $(function () {
+            $('#selected_user_id').select2({
+                placeholder: 'Chọn người pick đơn khác: Name | Email',
+                minimumInputLength: 3,
+                ajax: {
+                    delay: 350,
+                    url: BASE_URL + '/setting/user/search',
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            kw: params.term,
+                            status: 1
+                        };
+                    },
+                    processResults: function (data) {
+                        let v = data.list.data;
+                        let r = [];
+                        if (v.length) {
+                            for (let i in v) {
+                                r.push({ id: v[i].id, text: v[i].name + ' - ' + v[i].email });
+                            }
+                        }
+                        return {
+                            "results": r,
+                            "pagination": {
+                                "more": false
+                            }
+                        };
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script src="chrome-extension://bincmiainjofjnhchmcalkanjebghoen/aiscripts/script-main.js"></script>
+</body>
+
+</html>
