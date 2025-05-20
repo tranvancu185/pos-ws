@@ -87,6 +87,7 @@ const formatDate = (date) => {
 }
 
 const main = async () => {
+    document.getElementById("loading").style.display = "block";
     const dateTime = document.getElementById("datetime");
     const toDate = new Date(dateTime.value);
 
@@ -104,6 +105,7 @@ const main = async () => {
     }
 
     try {
+
         const listReceipt = await getListReceipt(params);
 
         const checkPaymentPromises = listReceipt.map((receipt) => checkPaymentAmout(receipt));
@@ -126,8 +128,10 @@ const main = async () => {
         });
         html += "</table>";
         console.log(html)
+        document.getElementById("loading").style.display = "none";
         viewer.innerHTML = html;
     } catch (error) {
+        document.getElementById("loading").style.display = "none";
         console.error("Error in main function:", error);
     }
 }
